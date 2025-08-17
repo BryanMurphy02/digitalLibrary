@@ -11,12 +11,21 @@ app = Flask(__name__)
 # the associated function.
 @app.route('/')
 # ‘/’ URL is bound with hello_world() function.
-def index():
+def home():
     return render_template("index.html")
+
+@app.route('/library')
+def library():
+    return render_template("library.html")
+
+
+@app.route('/profile')
+def profile():
+    return render_template("profile.html")
 
 # main driver function
 if __name__ == '__main__':
 
     # run() method of Flask class runs the application 
     # on the local development server.
-    app.run()
+    app.run(debug=True)
