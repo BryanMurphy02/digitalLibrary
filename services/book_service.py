@@ -1,4 +1,5 @@
 from database import query_database
+from services.author_service import add_author, get_author_by_name
 
 
 #books table methods
@@ -42,10 +43,63 @@ def check_book(book_name, book_author):
     else:
         return False
 
-#dynamically add/create books
-# def add_book():
-#     if()
+#add/create books
+#required params are book title, author first + last name
+#optional params cover, page count, series id, author id, series order
+def add_book(book_title, author_first_name, author_last_name, cover=None, page_count=None, series_id=None, author_id=None, series_order=None):
+    #Get the author id if not passed in
+    if author_id is None:
+        author_id = add_author(author_first_name, author_last_name)
+
+    row = query_database(
+        "INSERT INTO books (title, cover, page_count, series_id, author_id, series_order) VALUES (%s,%s,%s,%s,%s,%s) RETURNING *;",
+        (book_title, cover, page_count, series_id, author_id, series_order),
+        fetchone=True
+    )
+    return row
+    
+        
     # INSERT INTO user_books (book_id, user_id) VALUES (%s, %s) RETURNING *;
+
+#update book information
+#updates the book by the provided information
+def update_book(book_id, **kwargs):
+    #**kwargs means to take any passed in args and put them into a dictionary
+    if not kwargs:
+        raise ValueError("No fields inputted")
+    
+    #rigid set of column names to catch any typos or non-existing columns
+    allowed_cols = {"title", "cover", "page_count", "series_id", "author_id", "series_order"}
+    
+    #holds the column name such as title = %s
+    set_clauses = []
+    #holds the actual values of the column such as "The Way of Kings"
+    values = []
+    #enumerate through kwargs starting with the first entry and match the column name with the inputted value
+    for i, (col, val) in enumerate(kwargs.items(), start=1):
+        if col not in allowed_cols:
+            raise ValueError(f"Invalid column: {col}")
+        set_clauses.append(f"{col} = %s")
+        values.append(val)
+
+    #turns the clauses into one part such as combining title = %s and author = %s into "title=%s, author=%s"
+    set_clause = ", ".join(set_clauses)
+    
+    #building sql statements with the clauses
+    query = f"""
+        UPDATE books
+        SET {set_clause}
+        WHERE id = %s
+        RETURNING *;
+    """
+    #adding book id so that the book can be picked in the sql query
+    values.append(book_id)
+
+    #actually adding the updated information
+    #casting the list values into tuples to be used
+    row = query_database(query, tuple(values), fetchone=True)
+    return row
+
 
 
 

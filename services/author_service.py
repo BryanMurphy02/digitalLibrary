@@ -4,7 +4,7 @@ from database import query_database
 def get_all_authors():
     return query_database("SELECT * FROM author")
 
-#Get author id by first and last name
+#Checks to see if there is an author in the database by first and last name
 #returns none if not found
 def get_author_by_name(first_name, last_name):
     result = query_database("SELECT id FROM author WHERE first_name = %s AND last_name = %s", (first_name, last_name), fetchone=True)
@@ -15,6 +15,7 @@ def get_author_name(author_id):
     return query_database("SELECT first_name, last_name FROM author WHERE id = %s", (author_id,), fetchone=True)
 
 #Adds an author to database
+#Checks to see if author exists in database and if not then adds and returns id
 def add_author(first_name, last_name):
     result = get_author_by_name(first_name, last_name)
     if result is None:
