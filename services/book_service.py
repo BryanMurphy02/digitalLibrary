@@ -32,8 +32,20 @@ def get_books_by_genre(genre_id):
 def get_genre_of_book(book_id):
     return query_database("SELECT * FROM book_genre_map WHERE book_id = %s", (book_id,))
 
+# check to see if a book is already within database
+# Returns true if book is in database (based off title and author) and returns false if not
+def check_book(book_name, book_author):
+    row = get_book_by_title(book_name)
+    row2 = get_books_by_author(book_author)
+    if(row is None or row is None):
+        return True
+    else:
+        return False
 
-
+#dynamically add/create books
+# def add_book():
+#     if()
+    # INSERT INTO user_books (book_id, user_id) VALUES (%s, %s) RETURNING *;
 
 
 
@@ -92,6 +104,7 @@ def add_user_book(book_id, user_id):
     )
 
 
+
 #dynamic get methods for user_book table (chatGPT written)
 def get_user_book_column(column_name, book_id, user_id):
     allowed_columns = {'session_id', 'status', 'start_date', 'completed_date', 'user_id', 'book_id'}
@@ -115,4 +128,4 @@ def get_user_book_column_by_session(column_name, session_id):
 
 
 #Testing
-print(get_user_book_session(3, 1))
+print(get_all_books())
