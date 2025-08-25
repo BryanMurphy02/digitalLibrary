@@ -18,10 +18,11 @@ def query_database(query, params=None, fetchone=False):
     cur.execute(query, params or ()) #uses an empty tuple if there are no params
 
     data = None
-    if fetchone:
-        data = cur.fetchone()
-    else:
-        data = cur.fetchall()
+    if query.strip().upper().startswith("SELECT") or "RETURNING" in query.upper():
+        if fetchone:
+            data = cur.fetchone()
+        else:
+            data = cur.fetchall()
 
     con.commit()
     cur.close()

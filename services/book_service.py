@@ -13,6 +13,11 @@ def get_all_books():
 def get_book(book_id):
     return query_database("SELECT * FROM books WHERE id = %s", (book_id,), fetchone=True)
 
+#get book id by book name and returns id INT
+def get_book_id(book_title):
+    row = query_database("SELECT id FROM books WHERE title = %s", (book_title,), fetchone=True)
+    return row['id'] if row else None
+
 #returns all the books by a specific author by passing in author id
 def get_books_by_author(author_id):
     return query_database("SELECT * FROM books WHERE author_id = %s", (author_id,))
@@ -100,7 +105,9 @@ def update_book(book_id, **kwargs):
     row = query_database(query, tuple(values), fetchone=True)
     return row
 
-
+#delete a book from the database
+def delete_book(book_id):
+    query_database("DELETE FROM books WHERE id = %s", (book_id,))
 
 
 #User_book table methods
@@ -182,4 +189,7 @@ def get_user_book_column_by_session(column_name, session_id):
 
 
 #Testing
-print(get_all_books())
+# update_book(8, page_count=603)
+# add_book("Small Gods", "Terry", "Pratchett")
+# print(get_book_id("Small Gods"))
+delete_book(get_book_id("Small Gods"))
