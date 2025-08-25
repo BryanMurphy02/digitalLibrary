@@ -33,6 +33,41 @@ def get_author_id(first_name, last_name):
     row = query_database("SELECT id FROM author WHERE first_name = %s AND last_name = %s", (first_name,last_name), fetchone=True)
     return row['id'] if row else None
 
+#update author information
+#updates the author by the provided information
+def update_author(author_id, **kwargs):
+    if not kwargs:
+        raise ValueError("No fields inputted")
+
+    # Allowed columns for author table
+    allowed_cols = {"first_name", "last_name"}  # add more if your author table has extra columns
+
+    set_clauses = []
+    values = []
+
+    # Build SET clauses dynamically and validate column names
+    for col, val in kwargs.items():
+        if col not in allowed_cols:
+            raise ValueError(f"Invalid column: {col}")
+        set_clauses.append(f"{col} = %s")
+        values.append(val)
+
+    set_clause = ", ".join(set_clauses)
+
+    # Build SQL query
+    query = f"""
+        UPDATE author
+        SET {set_clause}
+        WHERE id = %s
+        RETURNING *;
+    """
+    values.append(author_id)
+
+    # Execute query and return updated row
+    row = query_database(query, tuple(values), fetchone=True)
+    return row
+
+
 #delete an author from the database
 def delete_author(author_id):
     query_database("DELETE FROM author WHERE id = %s", (author_id,))
@@ -41,5 +76,6 @@ def delete_author(author_id):
 
 #Testing
 # print(get_author_name(3))
-# add_author("Bryan", "Murphy")
-delete_author(get_author_id("Bryan", "Murphy"))
+# add_author("Jillian", "Desmond")
+# delete_author(get_author_id("Jillian", "Murphy"))
+# update_author(get_author_id("Jillian", "Desmond"), last_name="Murphy")

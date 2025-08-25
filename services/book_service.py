@@ -1,5 +1,6 @@
 from database import query_database
 from services.author_service import add_author, get_author_by_name
+from services.series_service import get_series_id
 
 
 #books table methods
@@ -193,3 +194,7 @@ def get_user_book_column_by_session(column_name, session_id):
 # add_book("Small Gods", "Terry", "Pratchett")
 # print(get_book_id("Small Gods"))
 # delete_book(get_book_id("Small Gods"))
+
+# update_book(get_book_id("The Blade Itself"), series_id=get_series_id("The First Law"), series_order=1)
+# update_book(get_book_id("Before they are Hanged"), series_id=get_series_id("The First Law"), series_order=2)
+# update_book(get_book_id("Last Argument of Kings"), series_id=get_series_id("The First Law"), series_order=3)
