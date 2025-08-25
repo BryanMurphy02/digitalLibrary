@@ -192,4 +192,4 @@ def get_user_book_column_by_session(column_name, session_id):
 # update_book(8, page_count=603)
 # add_book("Small Gods", "Terry", "Pratchett")
 # print(get_book_id("Small Gods"))
-delete_book(get_book_id("Small Gods"))
+# delete_book(get_book_id("Small Gods"))
