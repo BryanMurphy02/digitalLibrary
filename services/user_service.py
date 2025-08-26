@@ -26,6 +26,32 @@ def add_user(email, username, password):
     except psycopg2.errors.UniqueViolation:
         # Raised if email or username already exists
         raise ValueError("Email or username already exists. Please choose a different one.")
+    
+# verify a user's password
+def verify_password(email_or_username, password):
+    # fetch the stored hash from the database
+    row = query_database(
+        "SELECT password_hash FROM users WHERE email = %s OR username = %s",
+        (email_or_username, email_or_username),
+        fetchone=True
+    )
+    
+    if not row:
+        return False  # user not found
+    
+    stored_hash = row['password_hash']
+    
+    # check password against hash
+    return bcrypt.checkpw(password.encode('utf-8'), stored_hash.encode('utf-8'))
+
+
+#update the user password
+def reset_password(user_id, new_password):
+    hashed = hash_password(new_password)
+    query_database(
+        "UPDATE users SET password_hash = %s WHERE id = %s",
+        (hashed, user_id)
+    )
 
 
 #get user id from username
@@ -41,4 +67,4 @@ def get_user_username(user_id):
 
 
 #Testing
-add_user("test@gmail.com", "Jillian Murphy", "BryanLovesJillian")
+# add_user("test@gmail.com", "Jillian Murphy", "BryanLovesJillian")
