@@ -58,7 +58,7 @@ def get_series(series_id):
 
 #Testing
 # add_series("Throne of Glass", get_author_by_name("Sarah J.", "Maas"))
-# books = get_series(get_series_id("The First Law"))
+# books = get_series(get_series_id("Throne of Glass"))
 # for book in books:
 #     print(book)
 
