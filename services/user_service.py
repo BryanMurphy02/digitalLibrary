@@ -54,14 +54,25 @@ def reset_password(user_id, new_password):
     )
 
 
-#get user id from username
+# get user id from username
 def get_user_id(username):
-    return
+    row = query_database(
+        "SELECT id FROM users WHERE username = %s",
+        (username,),
+        fetchone=True
+    )
+    return row['id'] if row else None
 
 
-#get username from id
+# get username from id
 def get_user_username(user_id):
-    return
+    row = query_database(
+        "SELECT username FROM users WHERE id = %s",
+        (user_id,),
+        fetchone=True
+    )
+    return row['username'] if row else None
+
 
 
 
