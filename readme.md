@@ -79,6 +79,7 @@ project-root/
 │── /templates         # View layer: HTML templates for Flask
 │── /static            # CSS, JS, images
 │── /tests             # (Planned) unit tests for backend methods
+```
 
 ## Usage
 
@@ -93,3 +94,4 @@ venv\Scripts\activate     # Windows
 
 # Run Flask app
 python app.py
+```
