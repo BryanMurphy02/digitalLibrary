@@ -78,4 +78,6 @@ def get_user_username(user_id):
 
 
 #Testing
-# add_user("test@gmail.com", "Jillian Murphy", "BryanLovesJillian")
+# add_user("test2@gmail.com", "Bryan Murphy", "BryanLovesJillian")
+# add_user("test2@gmail.com", "Eden", "MrStinker")
+# add_user("test3@gmail.com", "Connor Murphy", "Connorisanidiot")
