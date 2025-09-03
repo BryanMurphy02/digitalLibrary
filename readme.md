@@ -56,6 +56,7 @@ The project follows a **Model-View-Controller (MVC)** style architecture to keep
 ```bash
 project-root/
 │── app.py             # Flask entry point (controllers / routes)
+│── database.py        # Psycopg2 setup
 │── requirements.txt   # Python dependencies
 │── /database          # SQL scripts, migrations, ERD diagrams
 │── /services          # Model layer: database access methods (psycopg2)
