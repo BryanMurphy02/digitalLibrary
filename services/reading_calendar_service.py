@@ -49,6 +49,36 @@ def update_reading_entry(user_id, book_id, read_date, **kwargs):
     row = query_database(query, tuple(values), fetchone=True)
     return row
 
+#update either the user id or book id in a reading entry based of the session id
+def update_reading_calendar_ids(session_id, new_user_id=None, new_book_id=None):
+    if not new_user_id and not new_book_id:
+        raise ValueError("Must provide either new_user_id or new_book_id")
+
+    set_clauses = []
+    values = []
+
+    if new_user_id:
+        set_clauses.append("user_id = %s")
+        values.append(new_user_id)
+    if new_book_id:
+        set_clauses.append("book_id = %s")
+        values.append(new_book_id)
+
+    set_clause = ", ".join(set_clauses)
+
+    query = f"""
+        UPDATE reading_calendar
+        SET {set_clause}
+        WHERE session_id = %s
+        RETURNING *;
+    """
+    values.append(session_id)
+
+    row = query_database(query, tuple(values), fetchone=True)
+    return row
+
+
+
 
 #update reading date of a calendar entry
 #changes the read_date for a specific user/book entry
@@ -113,3 +143,5 @@ def get_reading_calendar_past_week(user_id):
 
 #Testing
 # add_reading_entry(user_id=2, book_id=3, start_page=124, end_page=160, read_date=date(2025, 9, 1))
+# add_reading_entry(user_id=2, book_id=3, start_page=124, end_page=160, read_date=date(2025, 9, 1))
+# update_reading_calendar_ids(session_id=8, new_user_id=3)
