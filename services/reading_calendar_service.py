@@ -145,6 +145,3 @@ def get_reading_calendar_past_week(user_id):
 # add_reading_entry(user_id=2, book_id=3, start_page=124, end_page=160, read_date=date(2025, 9, 1))
 # add_reading_entry(user_id=2, book_id=3, start_page=124, end_page=160, read_date=date(2025, 9, 1))
 # update_reading_calendar_ids(session_id=8, new_user_id=3)
-books = get_reading_calendar_past_week(3)
-for book in books:
-    print(book)

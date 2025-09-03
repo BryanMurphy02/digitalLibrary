@@ -3,7 +3,7 @@ from services.author_service import get_author_by_name
 
 #Add series
 def add_series(name, author_id):
-    return query_database("INSERT INTO series (name, author_id) VALUES (%s, %s)", (name, author_id), fetchone=True)
+    return query_database("INSERT INTO series (name, author_id) VALUES (%s, %s) RETURNING *;", (name, author_id), fetchone=True)
 
 #update series information
 #updates the series by the provided information
@@ -46,9 +46,17 @@ def delete_series(series_id):
     query_database("DELETE FROM series WHERE id = %s", (series_id,))
 
 #get series id from name
-def get_series_id(name):
+#if series not found then add series and return id
+def get_series_id(name, author_id):
+    # Try to fetch existing series
     row = query_database("SELECT id FROM series WHERE name = %s", (name,), fetchone=True)
-    return row['id'] if row else None
+    if row:
+        return row['id']
+    
+    # Series not found, add it
+    new_series = add_series(name, author_id)
+    return new_series['id']
+
 
 #get series
 def get_series(series_id):
@@ -61,6 +69,3 @@ def get_series(series_id):
 # books = get_series(get_series_id("Throne of Glass"))
 # for book in books:
 #     print(book)
-
-
-

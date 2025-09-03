@@ -198,3 +198,11 @@ def get_user_book_column_by_session(column_name, session_id):
 # update_book(get_book_id("The Blade Itself"), series_id=get_series_id("The First Law"), series_order=1)
 # update_book(get_book_id("Before they are Hanged"), series_id=get_series_id("The First Law"), series_order=2)
 # update_book(get_book_id("Last Argument of Kings"), series_id=get_series_id("The First Law"), series_order=3)
+
+# add_book("Dungeon Crawler Carl", "Matt", "Dinniman", page_count = 446, series_id= get_series_id("Dungeon Crawler Carl", add_author("Matt", "Dinniman")), series_order= 1)
+# add_book("Carl's Doomsday Scenario", "Matt", "Dinniman", page_count = 364, series_id= get_series_id("Dungeon Crawler Carl", add_author("Matt", "Dinniman")), series_order= 2)
+# add_book("The Dungeon Anarchist's Cookbook", "Matt", "Dinniman", page_count = 534, series_id= get_series_id("Dungeon Crawler Carl", add_author("Matt", "Dinniman")), series_order= 3)
+# add_book("The Gate of the Feral Gods", "Matt", "Dinniman", page_count = 586, series_id= get_series_id("Dungeon Crawler Carl", add_author("Matt", "Dinniman")), series_order= 4)
+# add_book("The Butcher's Masquerade", "Matt", "Dinniman", page_count = 732, series_id= get_series_id("Dungeon Crawler Carl", add_author("Matt", "Dinniman")), series_order= 5)
+# add_book("The Eye of the Bedlam Bride", "Matt", "Dinniman", page_count = 694, series_id= get_series_id("Dungeon Crawler Carl", add_author("Matt", "Dinniman")), series_order= 6)
+# add_book("This Inevitable Ruin", "Matt", "Dinniman", page_count = 724, series_id= get_series_id("Dungeon Crawler Carl", add_author("Matt", "Dinniman")), series_order= 7)

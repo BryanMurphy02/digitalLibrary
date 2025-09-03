@@ -9,9 +9,16 @@ def add_genre(name):
     return query_database("INSERT INTO genre (name) VALUES (%s) RETURNING *;", (name,), fetchone=True)
 
 #def get genre id, returns INT
+#If the genre is not found then the genre is added and return id
 def get_genre_id(name):
+    # Try to fetch existing genre
     row = query_database("SELECT id FROM genre WHERE name = %s", (name,), fetchone=True)
-    return row['id'] if row else None
+    if row:
+        return row['id']
+    
+    # Genre not found, add it
+    new_genre = add_genre(name)
+    return new_genre['id']
 
 #get genre name by id
 def get_genre_name(id):
@@ -141,6 +148,10 @@ def delete_genre(genre_id):
     #delete the genre
     query_database("DELETE FROM genre WHERE id = %s", (genre_id,))
 
+#assigns the passed in genres to a passed in book
+def add_genres_to_book(book_id, *genre_names):
+    for name in genre_names:
+        add_book_genre_map(book_id, get_genre_id(name))
 
 
 
@@ -160,3 +171,11 @@ def delete_genre(genre_id):
 # books = get_books_in_genre("Fiction")
 # for book in books:
 #     print(book)
+
+
+# get_genre_id("Science Fiction")
+# get_genre_id("Humor")
+# get_genre_id("Dystopia")
+# get_genre_id("Comedy")
+
+# add_genres_to_book(get_book_id("Dungeon Crawler Carl"), "Fantasy", "Science Fiction", "Fiction", "Humor", "Comedy", "Dystopia")
