@@ -10,6 +10,10 @@ def hash_password(password: str) -> str:
     hashed = bcrypt.hashpw(password.encode('utf-8'), salt)
     return hashed.decode('utf-8')  # store as string in DB
 
+# get all
+def get_all_users():
+    return query_database("SELECT * FROM users")
+
 # add a user
 def add_user(email, username, password):
     hashed = hash_password(password)

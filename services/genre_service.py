@@ -4,6 +4,10 @@ from services.series_service import get_series, get_series_id
 
 #Genre table
 
+# get all the genres
+def get_all_genres():
+    return query_database("SELECT * FROM genre")
+
 #add genre
 def add_genre(name):
     return query_database("INSERT INTO genre (name) VALUES (%s) RETURNING *;", (name,), fetchone=True)

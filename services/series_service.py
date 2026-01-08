@@ -1,6 +1,10 @@
 from database import query_database
 from services.author_service import get_author_by_name
 
+# get all
+def get_all_series():
+    return query_database("SELECT * FROM series")
+
 #Add series
 def add_series(name, author_id):
     return query_database("INSERT INTO series (name, author_id) VALUES (%s, %s) RETURNING *;", (name, author_id), fetchone=True)

@@ -78,6 +78,10 @@ venv\Scripts\activate     # Windows
 
 # Run Flask app
 python app.py
+
+#Run a specific file within project
+python -m folder_name.file_name
+
 ```
 
 ## Roadmap

@@ -1,6 +1,10 @@
 from database import query_database
 from datetime import date
 
+# get all
+def get_all_reading_calendar():
+    return query_database("SELECT * FROM reading_calendar")
+
 #add reading entry to the calendar
 #defaults to an entry for current date unless another date is passed in
 def add_reading_entry(user_id, book_id, start_page, end_page, read_date=None):
