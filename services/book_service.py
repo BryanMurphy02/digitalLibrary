@@ -206,3 +206,4 @@ def get_user_book_column_by_session(column_name, session_id):
 # add_book("The Butcher's Masquerade", "Matt", "Dinniman", page_count = 732, series_id= get_series_id("Dungeon Crawler Carl", add_author("Matt", "Dinniman")), series_order= 5)
 # add_book("The Eye of the Bedlam Bride", "Matt", "Dinniman", page_count = 694, series_id= get_series_id("Dungeon Crawler Carl", add_author("Matt", "Dinniman")), series_order= 6)
 # add_book("This Inevitable Ruin", "Matt", "Dinniman", page_count = 724, series_id= get_series_id("Dungeon Crawler Carl", add_author("Matt", "Dinniman")), series_order= 7)
+

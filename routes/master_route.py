@@ -18,25 +18,54 @@ def to_dict(data):
 
 
 def get_books():
-    rows = book_service.get_all_books()
-    return to_dict(rows)
+    return to_dict(book_service.get_all_books())
 
 def get_authors():
-    rows = author_service.get_all_authors()
-    return to_dict(rows)
+    return to_dict(author_service.get_all_authors())
 
 def get_genres():
-    rows = genre_service.get_all_genres()
-    return to_dict(rows)
+    return to_dict(genre_service.get_all_genres())
 
 def get_series():
-    rows = series_service.get_all_series()
-    return to_dict(rows)
+    return to_dict(series_service.get_all_series())
 
 def get_users():
-    rows = user_service.get_all_users()
-    return to_dict(rows)
+    return to_dict(user_service.get_all_users())
 
 def get_reading_calendar():
-    rows = reading_calendar_service.get_all_reading_calendar()
-    return to_dict(rows)
+    return to_dict(reading_calendar_service.get_all_reading_calendar())
+
+
+
+#Id get functions
+#Input the name of the service and the name, returns int
+def get_id(service: str, name: str):
+    services = {
+        "book": book_service.get_book_id, 
+        "author": author_service.get_author_id, 
+        "genre": genre_service.get_genre_id, 
+        "series": series_service.get_series_id, 
+        "user": user_service.get_user_id
+    }
+    if service not in services:
+        raise ValueError(f"Unknown Service: {service}")
+    
+    get_id_func = services[service]
+
+    if service == "author":
+        parts = name.strip().split(" ")
+
+        if len(parts) != 2:
+            raise ValueError("Author name must be in 'First Last' format")
+
+        first_name, last_name = parts
+        return get_id_func(first_name, last_name)
+
+
+    return get_id_func(name)
+
+#Name get functions
+# def get_name():
+
+
+

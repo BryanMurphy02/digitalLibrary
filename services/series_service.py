@@ -51,15 +51,16 @@ def delete_series(series_id):
 
 #get series id from name
 #if series not found then add series and return id
-def get_series_id(name, author_id):
+# Orignally also took in author_id so that if a series was not found it would add the series to the author
+def get_series_id(name):
     # Try to fetch existing series
     row = query_database("SELECT id FROM series WHERE name = %s", (name,), fetchone=True)
     if row:
         return row['id']
     
-    # Series not found, add it
-    new_series = add_series(name, author_id)
-    return new_series['id']
+    # # Series not found, add it
+    # new_series = add_series(name, author_id)
+    # return new_series['id']
 
 
 #get series
