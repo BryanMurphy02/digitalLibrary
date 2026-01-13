@@ -10,6 +10,11 @@ def hash_password(password: str) -> str:
     hashed = bcrypt.hashpw(password.encode('utf-8'), salt)
     return hashed.decode('utf-8')  # store as string in DB
 
+#returns a row from the table
+def get_row():
+    result = query_database("SELECT * FROM users LIMIT 1")
+    return result[0] if result else None
+
 # get all
 def get_all_users():
     return query_database("SELECT * FROM users")

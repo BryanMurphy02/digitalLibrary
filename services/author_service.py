@@ -1,5 +1,11 @@
 from database import query_database
 
+#returns a row from the table
+def get_row():
+    result = query_database("SELECT * FROM author LIMIT 1")
+    return result[0] if result else None
+
+
 #Get all authors
 def get_all_authors():
     return query_database("SELECT * FROM author")

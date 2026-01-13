@@ -1,6 +1,11 @@
 from database import query_database
 from datetime import date
 
+#returns a row from the table
+def get_row():
+    result = query_database("SELECT * FROM reading_calendar LIMIT 1")
+    return result[0] if result else None
+
 # get all
 def get_all_reading_calendar():
     return query_database("SELECT * FROM reading_calendar")

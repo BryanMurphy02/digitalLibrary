@@ -4,6 +4,10 @@ from services.series_service import get_series_id
 
 
 #books table methods
+#returns a row from the table
+def get_row():
+    result = query_database("SELECT * FROM books LIMIT 1")
+    return result[0] if result else None
 
 #returns a list of all of the books in books table with all their attributes
 def get_all_books():

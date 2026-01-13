@@ -85,3 +85,24 @@ def get_row_by_id(service: str, id: int):
     return get_id_func(id)
 
 
+#Input a row from a table and return the inputted value its looking for
+#Ex: Input a row from the book table and input a column name and return the displayable value
+def get_dict_value():
+
+    #get all the column names for "service" tables
+    services = [
+        book_service.get_row,
+        author_service.get_row,
+        genre_service.get_row,
+        series_service.get_row,
+        user_service.get_row,
+        reading_calendar_service.get_row,
+    ]
+
+    all_keys = set()
+
+    for service in services:
+        row = service()
+        if row:
+            all_keys.update(to_dict(row).keys())
+

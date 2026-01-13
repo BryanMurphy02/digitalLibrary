@@ -4,6 +4,11 @@ from services.series_service import get_series, get_series_id
 
 #Genre table
 
+#returns a row from the table
+def get_row():
+    result = query_database("SELECT * FROM genre LIMIT 1")
+    return result[0] if result else None
+
 # get all the genres
 def get_all_genres():
     return query_database("SELECT * FROM genre")
