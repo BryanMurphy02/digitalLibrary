@@ -14,6 +14,10 @@ def hash_password(password: str) -> str:
 def get_all_users():
     return query_database("SELECT * FROM users")
 
+#Returns row of users table matching the inputted id
+def get_user_by_id(id):
+    return query_database("SELECT * FROM users WHERE id = %s", (id,))
+
 # add a user
 def add_user(email, username, password):
     hashed = hash_password(password)

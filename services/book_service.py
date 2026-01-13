@@ -9,6 +9,10 @@ from services.series_service import get_series_id
 def get_all_books():
     return query_database("SELECT * FROM books")
 
+#Returns row of books table matching the inputted id
+def get_book_by_id(id):
+    return query_database("SELECT * FROM books WHERE id = %s", (id,))
+
 #returns the book specific to the id that is passed in
 #important that book id is a single-element tuple
 def get_book(book_id):

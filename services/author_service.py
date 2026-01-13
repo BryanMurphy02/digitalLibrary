@@ -4,6 +4,10 @@ from database import query_database
 def get_all_authors():
     return query_database("SELECT * FROM author")
 
+#Returns row of author table matching the inputted id
+def get_author_by_id(id):
+    return query_database("SELECT * FROM author WHERE id = %s", (id,))
+
 #Checks to see if there is an author in the database by first and last name
 #returns none if not found or id int
 def get_author_by_name(first_name, last_name):

@@ -64,8 +64,24 @@ def get_id(service: str, name: str):
 
     return get_id_func(name)
 
-#Name get functions
-# def get_name():
 
+
+#Input the id for a table and return the row
+def get_row_by_id(service: str, id: int):
+    services = {
+        "book": book_service.get_book_by_id, 
+        "author": author_service.get_author_by_id, 
+        "genre": genre_service.get_genre_by_id, 
+        "series": series_service.get_series_by_id, 
+        "user": user_service.get_user_by_id,
+        "calendar": reading_calendar_service.get_reading_calendar_by_id
+    }
+
+    if service not in services:
+        raise ValueError(f"Unknown Service: {service}")
+    
+    get_id_func = services[service]
+
+    return get_id_func(id)
 
 

@@ -5,6 +5,10 @@ from datetime import date
 def get_all_reading_calendar():
     return query_database("SELECT * FROM reading_calendar")
 
+#Returns row of reading calendar table matching the inputted session_id
+def get_reading_calendar_by_id(id):
+    return query_database("SELECT * FROM reading_calendar WHERE session_id = %s", (id,))
+
 #add reading entry to the calendar
 #defaults to an entry for current date unless another date is passed in
 def add_reading_entry(user_id, book_id, start_page, end_page, read_date=None):
@@ -149,3 +153,4 @@ def get_reading_calendar_past_week(user_id):
 # add_reading_entry(user_id=2, book_id=3, start_page=124, end_page=160, read_date=date(2025, 9, 1))
 # add_reading_entry(user_id=2, book_id=3, start_page=124, end_page=160, read_date=date(2025, 9, 1))
 # update_reading_calendar_ids(session_id=8, new_user_id=3)
+

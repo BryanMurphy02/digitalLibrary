@@ -5,6 +5,10 @@ from services.author_service import get_author_by_name
 def get_all_series():
     return query_database("SELECT * FROM series")
 
+#Returns row of series table matching the inputted id
+def get_series_by_id(id):
+    return query_database("SELECT * FROM series WHERE id = %s", (id,))
+
 #Add series
 def add_series(name, author_id):
     return query_database("INSERT INTO series (name, author_id) VALUES (%s, %s) RETURNING *;", (name, author_id), fetchone=True)
@@ -74,3 +78,4 @@ def get_series(series_id):
 # books = get_series(get_series_id("Throne of Glass"))
 # for book in books:
 #     print(book)
+
