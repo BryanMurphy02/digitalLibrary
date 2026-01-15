@@ -82,12 +82,16 @@ def get_row_by_id(service: str, id: int):
     
     get_id_func = services[service]
 
-    return get_id_func(id)
+    return to_dict(get_id_func(id))
 
 
-#Input a row from a table and return the inputted value its looking for
+#Input a row from a table and a column name, return the inputted value its looking for
 #Ex: Input a row from the book table and input a column name and return the displayable value
-def get_dict_value():
+def get_dict_value(data, column: str):
+
+    #make data the proper format of a list if not already
+    if isinstance(data, RealDictRow):
+        data = to_dict(data)
 
     #get all the column names for "service" tables
     services = [
@@ -105,4 +109,13 @@ def get_dict_value():
         row = service()
         if row:
             all_keys.update(to_dict(row).keys())
+
+    #make sure the inputted column name matches one of the values in all_keys
+    if column not in all_keys:
+        raise ValueError(f"Unknown Column: {column}")
+    
+    if not data:
+        return None
+    return data[0].get(column)
+
 
