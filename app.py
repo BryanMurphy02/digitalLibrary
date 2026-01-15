@@ -2,6 +2,8 @@
 # An object of Flask class is our WSGI application.
 from flask import Flask, render_template
 
+from routes import master_route
+
 # Flask constructor takes the name of 
 # current module (__name__) as argument.
 app = Flask(__name__)
@@ -16,7 +18,8 @@ def home():
 
 @app.route('/library')
 def library():
-    return render_template("library.html")
+    books = master_route.get_books()
+    return render_template("library.html", books=books)
 
 
 @app.route('/profile')
