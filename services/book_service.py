@@ -217,6 +217,36 @@ def get_user_book_column_by_session(column_name, session_id):
 
 
 # update_book(
-#     book_id=2,
-#     cover="images/books/words_of_radiance.jpg"
+#     book_id=18,
+#     cover="images/books/dungeon_crawler_carl.jpg"
+# )
+
+# update_book(
+#     book_id=19,
+#     cover="images/books/carl's_doomsday_scenario.jpg"
+# )
+
+# update_book(
+#     book_id=20,
+#     cover="images/books/the_dungeon_anarchist's_cookbook.jpg"
+# )
+
+# update_book(
+#     book_id=21,
+#     cover="images/books/the_gate_of_the_feral_gods.jpg"
+# )
+
+# update_book(
+#     book_id=22,
+#     cover="images/books/the_butcher's_masquerade.jpg"
+# )
+
+# update_book(
+#     book_id=23,
+#     cover="images/books/the_eye_of_the_bedlam_bride.jpg"
+# )
+
+# update_book(
+#     book_id=24,
+#     cover="images/books/this_inevitable_ruin.jpg"
 # )
