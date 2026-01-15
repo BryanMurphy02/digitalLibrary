@@ -12,7 +12,12 @@ My App
   {% for book in books %}
     <li>
       <strong>{{ book.title }}</strong><br>
-      Pages: {{ book.page_count }}
+        <img
+        src="{{ url_for('static',
+            filename=book.cover if book.cover else 'images/books/default.jpg') }}"
+        alt="{{ book.title }} cover"
+        width="150"
+        />
     </li>
   {% endfor %}
 </ul>
