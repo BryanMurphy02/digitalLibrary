@@ -96,3 +96,64 @@ section {
     font-size: 0.85rem;
     color: #666;
 }
+
+
+.profile-container {
+    display: flex;
+    justify-content: center;
+    padding: 2rem 1rem;
+}
+
+
+.profile-card {
+    background: #ffffff;
+    max-width: 800px;
+    width: 100%;
+    border-radius: 10px;
+    box-shadow: 0 6px 18px rgba(0,0,0,0.1);
+    padding: 2rem;
+}
+
+.profile-header {
+    display: flex;
+    gap: 2rem;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.profile-picture-placeholder {
+    width: 140px;
+    height: 140px;
+    border-radius: 50%;
+    background: #eee;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #777;
+    font-size: 0.9rem;
+}
+
+.profile-username {
+    margin: 0;
+    font-size: 1.8rem;
+}
+
+.profile-bio {
+    margin-top: 0.5rem;
+    color: #555;
+    line-height: 1.5;
+}
+
+.profile-divider {
+    margin: 2rem 0;
+    border-top: 1px solid #e0e0e0;
+}
+
+.profile-detail h3 {
+    margin-bottom: 0.25rem;
+    font-size: 1.1rem;
+}
+
+.profile-detail p {
+    color: #666;
+}
