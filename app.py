@@ -27,6 +27,10 @@ def library():
 def profile():
     return render_template("profile.html")
 
+@app.route('/reading_calendar')
+def reading_calendar():
+    return render_template("reading_calendar.html")
+
 # main driver function
 if __name__ == '__main__':
 
