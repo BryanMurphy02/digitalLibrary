@@ -1,10 +1,50 @@
 {% extends "layout.html" %}
 
 {% block title %}
-My App
+Profile
 {% endblock %}
 
 {% block content %}
-<h1>Profile</h1>
-<p>This is Profile page</p>
+<h1 class="page-title">Profile</h1>
+
+<div class="profile-container">
+    <div class="profile-card">
+
+        <div class="profile-header">
+            <div class="profile-picture">
+                <!-- Placeholder for now -->
+                <div class="profile-picture-placeholder">
+                    Profile Photo
+                </div>
+            </div>
+
+            <div class="profile-main-info">
+                <h2 class="profile-username">Username</h2>
+                <p class="profile-bio">
+                    This is where the user bio will go. A short description about the user,
+                    their reading interests, or anything they want to share.
+                </p>
+            </div>
+        </div>
+
+        <div class="profile-divider"></div>
+
+        <div class="profile-details">
+                <div class="profile-detail">
+                    <h3>Favorite Book</h3>
+                    <p>Not set yet</p>
+                </div>
+
+                <div class="profile-detail">
+                    <h3>Reading Activity</h3>
+                    <p>
+                        <a href="{{ url_for('reading_calendar') }}">
+                            View full reading calendar →
+                        </a>
+                    </p>
+                </div>
+        </div>
+
+    </div>
+</div>
 {% endblock %}

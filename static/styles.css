@@ -1,46 +1,277 @@
+/* ---------------- Body / Global ---------------- */
 body {
-  font-family: Arial, sans-serif;
-  background-color: #f5f5f5;
-  color: #222;
-  margin: 20px;
+    font-family: Arial, sans-serif;
+    background-color: #f5f5f5;
+    color: #222;
+    margin: 20px;
+}
+
+h1, h2, h3 {
+    margin: 0;
 }
 
 h1 {
-  color: steelblue;
+    color: steelblue;
 }
 
-.hero {
-  margin-bottom: 2rem;
+p {
+    line-height: 1.5;
+    color: #555;
 }
 
-.tagline {
-  font-size: 1.1rem;
-  color: #555;
-}
-
-section {
-  margin-bottom: 2rem;
-}
-
-.features ul {
-  list-style: none;
-  padding-left: 0;
-}
-
-.features li {
-  margin-bottom: 0.5rem;
-}
-
+/* ---------------- Buttons ---------------- */
 .button {
-  display: inline-block;
-  margin-right: 1rem;
-  padding: 0.5rem 1rem;
-  background: #333;
-  color: white;
-  text-decoration: none;
-  border-radius: 4px;
+    display: inline-block;
+    margin-right: 1rem;
+    padding: 0.5rem 1rem;
+    background: #333;
+    color: white;
+    text-decoration: none;
+    border-radius: 4px;
+    transition: background 0.15s ease;
+}
+
+.button:hover {
+    background: #555;
 }
 
 .button.secondary {
-  background: #777;
+    background: #777;
+}
+
+.button.secondary:hover {
+    background: #555;
+}
+
+/* ---------------- Card Base ---------------- */
+.card {
+    background: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 6px 18px rgba(0,0,0,0.1);
+    padding: 1.5rem;
+}
+
+/* ---------------- Home Page ---------------- */
+.home-container {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 2rem 1rem;
+    display: grid;
+    gap: 1.5rem;
+}
+
+.home-hero h1 {
+    font-size: 2.2rem;
+}
+
+.tagline {
+    font-size: 1.1rem;
+    color: #555;
+    margin-top: 0.5rem;
+}
+
+.home-section h2 {
+    font-size: 1.4rem;
+    margin-bottom: 0.5rem;
+}
+
+.feature-list {
+    list-style: none;
+    padding-left: 0;
+}
+
+.feature-list li {
+    margin-bottom: 0.5rem;
+}
+
+.home-buttons {
+    display: flex;
+    gap: 0.75rem;
+    flex-wrap: wrap;
+    margin-top: 1rem;
+}
+
+/* ---------------- Book Grid ---------------- */
+.book-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+    gap: 1.5rem;
+    padding: 1rem;
+}
+
+.book-card {
+    background: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+    overflow: hidden;
+    transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+.book-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 20px rgba(0,0,0,0.12);
+}
+
+.book-cover img {
+    width: 100%;
+    height: 260px;
+    object-fit: cover;
+}
+
+.no-cover {
+    height: 260px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #eee;
+    color: #777;
+    font-size: 0.9rem;
+}
+
+.book-info {
+    padding: 0.75rem;
+    text-align: center;
+}
+
+.book-title {
+    font-size: 1rem;
+    margin: 0.25rem 0;
+}
+
+.book-author {
+    font-size: 0.85rem;
+    color: #666;
+}
+
+/* ---------------- Profile Page ---------------- */
+.profile-container {
+    display: flex;
+    justify-content: center;
+    padding: 2rem 1rem;
+}
+
+.profile-card {
+    max-width: 800px;
+    width: 100%;
+    border-radius: 10px;
+    padding: 2rem;
+}
+
+.profile-header {
+    display: flex;
+    gap: 2rem;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.profile-picture-placeholder {
+    width: 140px;
+    height: 140px;
+    border-radius: 50%;
+    background: #eee;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #777;
+    font-size: 0.9rem;
+}
+
+.profile-username {
+    font-size: 1.8rem;
+}
+
+.profile-bio {
+    margin-top: 0.5rem;
+}
+
+.profile-divider {
+    margin: 2rem 0;
+    border-top: 1px solid #e0e0e0;
+}
+
+.profile-detail h3 {
+    margin-bottom: 0.25rem;
+    font-size: 1.1rem;
+}
+
+.profile-detail a {
+    display: inline-block;
+    margin-top: 0.25rem;
+    color: #333;
+    font-weight: 500;
+}
+
+/* ---------------- Calendar Page ---------------- */
+.calendar-container {
+    display: flex;
+    justify-content: center;
+    padding: 2rem 1rem;
+}
+
+.calendar-card {
+    width: 100%;
+    max-width: 900px;
+    border-radius: 10px;
+    padding: 1.5rem;
+}
+
+.calendar-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 1.5rem;
+}
+
+.calendar-month {
+    font-size: 1.6rem;
+}
+
+.calendar-nav {
+    background: none;
+    border: none;
+    font-size: 1.5rem;
+    cursor: pointer;
+}
+
+.calendar-grid {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+}
+
+.calendar-weekdays div {
+    text-align: center;
+    font-weight: 600;
+    padding-bottom: 0.5rem;
+}
+
+.calendar-days {
+    gap: 0.5rem;
+}
+
+.calendar-day {
+    min-height: 100px;
+    border-radius: 8px;
+    padding: 0.5rem;
+    background: #f9f9f9;
+    cursor: pointer;
+    transition: background 0.15s ease, transform 0.15s ease;
+    position: relative;
+}
+
+.calendar-day:hover {
+    background: #ececec;
+    transform: translateY(-2px);
+}
+
+.calendar-day-number {
+    position: absolute;
+    top: 6px;
+    right: 8px;
+    font-size: 0.85rem;
+    color: #666;
+}
+
+.calendar-day.empty {
+    background: transparent;
+    cursor: default;
 }
