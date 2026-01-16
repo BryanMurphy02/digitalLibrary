@@ -1,61 +1,55 @@
-<!-- Old default html page -->
-<!-- <!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title>My App</title>
-</head>
-<body>
-  <h1>Hello, world!</h1>
-  <p>This is a bare-bones HTML page.</p>
-</body>
-</html> -->
-
 {% extends "layout.html" %}
 
 {% block title %}
-My App
+Digital Library
 {% endblock %}
 
 {% block content %}
-<section class="hero">
-  <h1>Digital Library</h1>
-  <p class="tagline">
-    Track what you’ve read, plan what’s next, and reflect on every book you finish.
-  </p>
-</section>
+<div class="home-container">
 
-<section class="overview">
-  <h2>What is Digital Library?</h2>
-  <p>
-    Digital Library is your personal reading companion. It helps you organize
-    your books, keep track of your reading progress, and capture your thoughts
-    along the way — all in one place.
-  </p>
-</section>
+    <!-- HERO / INTRO CARD -->
+    <div class="home-hero card">
+        <h1>Digital Library</h1>
+        <p class="tagline">
+            Track what you’ve read, plan what’s next, and reflect on every book you finish.
+        </p>
+    </div>
 
-<section class="features">
-  <h2>What You Can Do</h2>
-  <ul>
-    <li>📚 Build and organize your personal book library</li>
-    <li>📝 Journal your thoughts and favorite quotes</li>
-    <li>🎯 Set reading goals and track progress</li>
-    <li>⭐ Rate books and reflect after finishing</li>
-  </ul>
-</section>
+    <!-- OVERVIEW -->
+    <div class="home-section card">
+        <h2>What is Digital Library?</h2>
+        <p>
+            Digital Library is your personal reading companion. Organize your books,
+            track your reading progress, and capture your thoughts — all in one place.
+        </p>
+    </div>
 
-<section class="cta">
-  <h2>Get Started</h2>
-  <p>
-    Head to your library to start adding books, or visit your profile to
-    customize your reading goals.
-  </p>
-  <a href="{{ url_for('library') }}" class="button">Go to Library</a>
-  <a href="{{ url_for('profile') }}" class="button secondary">View Profile</a>
-</section>
+    <!-- FEATURES -->
+    <div class="home-section card">
+        <h2>What You Can Do</h2>
+        <ul class="feature-list">
+            <li>📚 Build and organize your personal book library</li>
+            <li>📝 Journal your thoughts and favorite quotes</li>
+            <li>🎯 Set reading goals and track progress</li>
+            <li>⭐ Reflect and rate books after finishing</li>
+        </ul>
+    </div>
 
-<section class="books">
+    <!-- ACTIONS -->
+    <div class="home-actions card">
+        <h2>Get Started</h2>
+        <p>
+            Jump into your library, view your profile, or log today’s reading.
+        </p>
 
-</section>
+        <div class="home-buttons">
+            <a href="{{ url_for('library') }}" class="button">Library</a>
+            <a href="{{ url_for('profile') }}" class="button secondary">Profile</a>
+            <a href="{{ url_for('reading_calendar') }}" class="button secondary">
+                Reading Calendar
+            </a>
+        </div>
+    </div>
+
+</div>
 {% endblock %}
-
