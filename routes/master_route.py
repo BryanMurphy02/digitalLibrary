@@ -119,4 +119,4 @@ def get_dict_value(data, column: str):
     return data[0].get(column)
 
 
-print(get_row_by_id("book", 2))
+# print(get_row_by_id("book", 2))
