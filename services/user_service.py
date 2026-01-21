@@ -3,6 +3,9 @@ import bcrypt
 import psycopg2
 from psycopg2 import errors
 
+# importing for user auth from flask_login
+from routes.user_route import User
+
 #puts in a password string and returns an encrypted password
 def hash_password(password: str) -> str:
     # Generate a salt and hash the password
@@ -19,9 +22,33 @@ def get_row():
 def get_all_users():
     return query_database("SELECT * FROM users")
 
-#Returns row of users table matching the inputted id
-def get_user_by_id(id):
-    return query_database("SELECT * FROM users WHERE id = %s", (id,))
+# Implemented with User class from user_route which uses flask_login
+def get_user_by_id(user_id):
+    result = query_database(
+        "SELECT id, email, password_hash FROM users WHERE id = %s",
+        (user_id,),
+        one=True
+    )
+
+    if not result:
+        return None
+    
+    return result
+
+# Implemented with User class from user_route which uses flask_login
+def get_user_by_email(email):
+    result = query_database(
+        "SELECT id, email, password_hash FROM users WHERE email = %s",
+        (email,),
+        one=True
+    )
+
+    if not result:
+        return None
+    
+    return result
+
+    
 
 # add a user
 def add_user(email, username, password):

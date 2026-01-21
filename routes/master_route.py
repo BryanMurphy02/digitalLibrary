@@ -119,7 +119,3 @@ def get_dict_value(data, column: str):
     return data[0].get(column)
 
 
-
-
-# User login session
-# Capable of calling from the user_service file

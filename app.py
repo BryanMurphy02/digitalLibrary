@@ -3,10 +3,7 @@
 from flask import Flask, render_template
 from flask_login import LoginManager
 
-# Helper class for flask_login
-from flask_login import UserMixin
-
-from routes import master_route
+from routes import master_route, user_route
 
 # Flask constructor takes the name of 
 # current module (__name__) as argument.
@@ -53,7 +50,7 @@ def register():
 # Login managar getting the user_id as a string
 @login_manager.user_loader
 def load_user(user_id):
-    return UserMixin.get(user_id)
+    return user_route.get_user_by_id(user_id)
 
 # main driver function
 if __name__ == '__main__':
