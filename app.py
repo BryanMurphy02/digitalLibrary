@@ -7,9 +7,13 @@ from flask_login import LoginManager, login_user, logout_user, login_required
 
 from routes import master_route, user_route
 
+# Needs to be changed when deploying app
+import secrets
+
 # Flask constructor takes the name of 
 # current module (__name__) as argument.
 app = Flask(__name__)
+app.secret_key = secrets.token_hex(32)
 
 # Creating the login object
 login_manager = LoginManager()
