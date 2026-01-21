@@ -119,4 +119,7 @@ def get_dict_value(data, column: str):
     return data[0].get(column)
 
 
-# print(get_row_by_id("book", 2))
+
+
+# User login session
+# Capable of calling from the user_service file

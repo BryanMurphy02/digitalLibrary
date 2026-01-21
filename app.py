@@ -1,12 +1,20 @@
 # Importing flask module in the project is mandatory
 # An object of Flask class is our WSGI application.
 from flask import Flask, render_template
+from flask_login import LoginManager
+
+# Helper class for flask_login
+from flask_login import UserMixin
 
 from routes import master_route
 
 # Flask constructor takes the name of 
 # current module (__name__) as argument.
 app = Flask(__name__)
+
+# Creating the login object
+login_manager = LoginManager()
+login_manager.init_app(app)
 
 # The route() function of the Flask class is a decorator, 
 # which tells the application which URL should call 
@@ -30,6 +38,22 @@ def profile():
 @app.route('/reading_calendar')
 def reading_calendar():
     return render_template("reading_calendar.html")
+
+@app.route('/login')
+def login():
+    return render_template("login.html")
+
+@app.route('/register')
+def register():
+    return render_template("register.html")
+
+
+
+
+# Login managar getting the user_id as a string
+@login_manager.user_loader
+def load_user(user_id):
+    return UserMixin.get(user_id)
 
 # main driver function
 if __name__ == '__main__':
