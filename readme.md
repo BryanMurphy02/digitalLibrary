@@ -82,6 +82,9 @@ python app.py
 #Run a specific file within project
 python -m folder_name.file_name
 
+# Update the requirements file
+pip freeze > requirements.txt
+
 ```
 
 ## Roadmap
