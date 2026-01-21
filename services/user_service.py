@@ -27,7 +27,7 @@ def get_user_by_id(user_id):
     result = query_database(
         "SELECT id, email, password_hash FROM users WHERE id = %s",
         (user_id,),
-        one=True
+        fetchone=True
     )
 
     if not result:
@@ -40,7 +40,7 @@ def get_user_by_email(email):
     result = query_database(
         "SELECT id, email, password_hash FROM users WHERE email = %s",
         (email,),
-        one=True
+        fetchone=True
     )
 
     if not result:
@@ -49,10 +49,10 @@ def get_user_by_email(email):
     return result
 
 
-def register_user(email, password_hash):
+def register_user(email, username, password_hash):
     query_database(
-            "INSERT INTO users (email, password_hash) VALUES (%s, %s)",
-            (email, password_hash)
+            "INSERT INTO users (email, username, password_hash) VALUES (%s, %s, %s)",
+            (email, username, password_hash)
         )
 
 

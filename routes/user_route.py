@@ -30,5 +30,5 @@ def get_user_by_email(email):
     )
 
 
-def register_user(email, password_hash):
-    user_service.register_user(email, password_hash)
+def register_user(email, username, password_hash):
+    user_service.register_user(email, username, password_hash)

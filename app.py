@@ -64,11 +64,12 @@ def login():
 def register():
     if request.method == 'POST':
         email = request.form['email']
+        username = request.form['username']
         password = request.form['password']
 
         password_hash = generate_password_hash(password)
 
-        user_route.register_user(email, password_hash)
+        user_route.register_user(email, username, password_hash)
 
         return redirect(url_for('login'))
 
