@@ -2,9 +2,10 @@ from flask_login import UserMixin
 from services import user_service
 
 class User(UserMixin):
-    def __init__(self, id, email, password_hash):
+    def __init__(self, id, email, username, password_hash):
         self.id = id
         self.email = email
+        self.username = username
         self.password_hash = password_hash
 
 
@@ -19,6 +20,7 @@ def get_user_by_id(user_id):
     return User(
         id=result["id"],
         email=result["email"],
+        username=result["username"],
         password_hash=result["password_hash"]
     )
 
@@ -32,6 +34,7 @@ def get_user_by_email(email):
     return User(
         id=result["id"],
         email=result["email"],
+        username=result["username"],
         password_hash=result["password_hash"]
     )
 
