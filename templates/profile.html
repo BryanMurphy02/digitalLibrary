@@ -12,11 +12,10 @@ Profile
 
         <div class="profile-header">
             <div class="profile-picture">
-                <!-- Placeholder for now -->
-                <div class="profile-picture-placeholder">
-                    Profile Photo
-                </div>
+                <img src="{{ url_for('static', filename=user_data.profile_picture) }}" alt="{{ user_data.username }}">
             </div>
+
+
 
             <div class="profile-main-info">
                 <h2 class="profile-username">{{current_user.username}}</h2>
