@@ -25,7 +25,7 @@ def get_all_users():
 # Implemented with User class from user_route which uses flask_login
 def get_user_by_id(user_id):
     result = query_database(
-        "SELECT id, email, username, password_hash FROM users WHERE id = %s",
+        "SELECT * FROM users WHERE id = %s",
         (user_id,),
         fetchone=True
     )

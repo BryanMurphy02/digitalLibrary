@@ -3,7 +3,7 @@
 from flask import Flask, render_template
 from flask import request, redirect, url_for, flash
 from werkzeug.security import generate_password_hash, check_password_hash
-from flask_login import LoginManager, login_user, logout_user, login_required
+from flask_login import LoginManager, login_user, logout_user, login_required, current_user
 
 from routes import master_route, user_route
 
@@ -41,7 +41,8 @@ def library():
 @app.route('/profile')
 @login_required
 def profile():
-    return render_template("profile.html")
+    user_data = master_route.get_row_by_id("user", current_user.id)
+    return render_template("profile.html", user_data=user_data)
 
 @app.route('/reading_calendar')
 @login_required
