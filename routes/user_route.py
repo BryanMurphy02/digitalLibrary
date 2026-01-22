@@ -13,6 +13,9 @@ class User(UserMixin):
 def get_user_by_id(user_id):
     result = user_service.get_user_by_id(user_id)
 
+    if result is None:
+        return None
+
     return User(
         id=result["id"],
         email=result["email"],
@@ -22,6 +25,9 @@ def get_user_by_id(user_id):
 
 def get_user_by_email(email):
     result = user_service.get_user_by_email(email)
+
+    if result is None:
+        return None
 
     return User(
         id=result["id"],

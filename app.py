@@ -13,7 +13,10 @@ import secrets
 # Flask constructor takes the name of 
 # current module (__name__) as argument.
 app = Flask(__name__)
-app.secret_key = secrets.token_hex(32)
+
+# Needs to change this if ever not simply in dev mode
+app.secret_key = "bryanlovesjillianmore"
+
 
 # Creating the login object
 login_manager = LoginManager()
