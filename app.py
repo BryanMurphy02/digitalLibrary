@@ -44,6 +44,7 @@ def profile():
     return render_template("profile.html")
 
 @app.route('/reading_calendar')
+@login_required
 def reading_calendar():
     return render_template("reading_calendar.html")
 
