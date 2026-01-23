@@ -49,7 +49,7 @@ def profile():
 def reading_calendar():
     return render_template("reading_calendar.html")
 
-@app.route('/add_books')
+@app.route('/add_books', methods=['GET', 'POST'])
 @login_required
 def add_books():
     return render_template("add_books.html")
