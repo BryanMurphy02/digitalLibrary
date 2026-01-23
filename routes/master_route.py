@@ -119,3 +119,7 @@ def get_dict_value(data, column: str):
     return data[0].get(column)
 
 
+
+# adding books to the database from the front end
+def add_book(book_title, author_first_name, author_last_name, page_count=None, cover_path=None):
+    book_service.add_book(book_title, author_first_name, author_last_name, cover_path, page_count)

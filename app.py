@@ -4,6 +4,9 @@ from flask import Flask, render_template
 from flask import request, redirect, url_for, flash
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import LoginManager, login_user, logout_user, login_required, current_user
+from werkzeug.utils import secure_filename
+import uuid
+import os
 
 from routes import master_route, user_route
 
@@ -52,7 +55,42 @@ def reading_calendar():
 @app.route('/add_books', methods=['GET', 'POST'])
 @login_required
 def add_books():
+    if request.method == 'POST':
+        book_title = request.form.get('book_title')
+        author_first_name = request.form.get('author_first_name')
+        author_last_name = request.form.get('author_last_name')
+        page_count = request.form.get('page_count') or None
+
+        cover_file = request.files.get('cover') or None
+
+        if not book_title or not author_first_name or not author_last_name:
+            flash("Title and author fields are required.")
+            return redirect(url_for('add_books'))
+        
+        cover_path = None
+        if cover_file and cover_file.filename:
+            filename = secure_filename(cover_file.filename)
+            ext = filename.rsplit('.', 1)[1]
+
+            filename = f"{uuid.uuid4()}.{ext}"
+            cover_path = f"images/books/{filename}"
+
+            cover_file.save(os.path.join("static", cover_path))
+
+        master_route.add_book(
+            book_title,
+            author_first_name,
+            author_last_name,
+            page_count,
+            cover_path
+        )
+
+        flash("Book added successfully!")
+        return redirect(url_for('add_books'))
+
     return render_template("add_books.html")
+
+
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():

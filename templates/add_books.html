@@ -6,9 +6,39 @@ My App
 
 {% block content %}
 
+<h2>Add Book</h2>
 
+<form method="POST" action="{{ url_for('add_books') }}" enctype="multipart/form-data">
 
-<h1>This is the add books page</h1>
+    <div>
+        <label for="book_title">Book Title</label>
+        <input type="text" id="book_title" name="book_title" required>
+    </div>
+
+    <div>
+        <label for="author_first_name">Author First Name</label>
+        <input type="text" id="author_first_name" name="author_first_name" required>
+    </div>
+
+    <div>
+        <label for="author_last_name">Author Last Name</label>
+        <input type="text" id="author_last_name" name="author_last_name" required>
+    </div>
+
+    <div>
+        <label for="page_count">Page Count</label>
+        <input type="number" id="page_count" name="page_count" min="1">
+    </div>
+
+    <div>
+        <label for="cover">Cover Image (optional)</label>
+        <input type="file" id="cover" name="cover" accept="image/*">
+    </div>
+
+    <button type="submit">Add Book</button>
+
+</form>
+
 
 
 {% endblock %}
