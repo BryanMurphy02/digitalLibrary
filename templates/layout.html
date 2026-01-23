@@ -13,6 +13,10 @@
     <a href="{{ url_for('library') }}">Library</a>
     <a href="{{ url_for('reading_calendar') }}">Reading Calendar</a>
     <a href="{{ url_for('profile') }}">Profile</a>
+    <!-- Checking to see if a user is logged in and that it's also the Admin -->
+    {% if current_user.is_authenticated and current_user.id == 10 %}
+      <a href="{{ url_for('add_books') }}">Add Books</a>
+    {% endif %}
   </div>
 
   <!-- Right side: username / login / logout -->

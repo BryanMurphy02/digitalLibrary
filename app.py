@@ -49,6 +49,11 @@ def profile():
 def reading_calendar():
     return render_template("reading_calendar.html")
 
+@app.route('/add_books')
+@login_required
+def add_books():
+    return render_template("add_books.html")
+
 @app.route('/login', methods=['GET', 'POST'])
 def login():
     if request.method == 'POST':
