@@ -76,6 +76,9 @@ After setting up the project (see Installation & Setup), users can:
 source venv/bin/activate  # Mac/Linux
 venv\Scripts\activate     # Windows
 
+# Install from requirements
+pip install -r requirements.txt
+
 # Run Flask app
 python app.py
 

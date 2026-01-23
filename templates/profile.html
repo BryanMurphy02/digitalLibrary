@@ -12,17 +12,15 @@ Profile
 
         <div class="profile-header">
             <div class="profile-picture">
-                <!-- Placeholder for now -->
-                <div class="profile-picture-placeholder">
-                    Profile Photo
-                </div>
+                <img src="{{ url_for('static', filename=user_data.profile_picture) }}" alt="{{ user_data.username }}">
             </div>
 
+
+
             <div class="profile-main-info">
-                <h2 class="profile-username">Username</h2>
+                <h2 class="profile-username">{{current_user.username}}</h2>
                 <p class="profile-bio">
-                    This is where the user bio will go. A short description about the user,
-                    their reading interests, or anything they want to share.
+                    {{ user_data.bio }}
                 </p>
             </div>
         </div>
@@ -32,7 +30,7 @@ Profile
         <div class="profile-details">
                 <div class="profile-detail">
                     <h3>Favorite Book</h3>
-                    <p>Not set yet</p>
+                    <p> {{ user_data.favorite_book }}</p>
                 </div>
 
                 <div class="profile-detail">

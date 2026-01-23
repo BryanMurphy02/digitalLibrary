@@ -19,6 +19,36 @@ p {
     color: #555;
 }
 
+/* ================= Navbar ================= */
+.navbar {
+    display: flex;
+    justify-content: space-between; /* left/right spacing */
+    align-items: center;            /* vertically center items */
+    padding: 0.5rem 1rem;
+    background-color: #f5f5f5;
+    border-bottom: 1px solid #ccc;
+}
+
+.nav-left a,
+.nav-right a {
+    margin-right: 1rem;
+    text-decoration: none;
+    color: #222;
+}
+
+.nav-right span {
+    font-weight: bold;
+    margin-right: 1rem;
+}
+
+/* Hover effect */
+.nav-left a:hover,
+.nav-right a:hover {
+    text-decoration: underline;
+    color: steelblue;
+}
+
+
 /* ---------------- Buttons ---------------- */
 .button {
     display: inline-block;
@@ -164,17 +194,26 @@ p {
     flex-wrap: wrap;
 }
 
-.profile-picture-placeholder {
+.profile-picture {
     width: 140px;
     height: 140px;
     border-radius: 50%;
-    background: #eee;
+    overflow: hidden;          /* ensures image stays inside the circle */
+    background: #eee;          /* placeholder color if image fails to load */
     display: flex;
     align-items: center;
     justify-content: center;
-    color: #777;
-    font-size: 0.9rem;
 }
+
+.profile-picture img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;         /* fills the circle while preserving aspect ratio */
+    object-position: center;   /* centers the important part of the image */
+    display: block;            /* removes inline spacing issues */
+}
+
+
 
 .profile-username {
     font-size: 1.8rem;
