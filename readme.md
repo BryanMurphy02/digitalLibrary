@@ -71,6 +71,9 @@ After setting up the project (see Installation & Setup), users can:
 
 1. **Run the Application**
 ```bash
+# Create virtual environment (if applicable)
+python3 -m venv venv
+
 # Activate your virtual environment (if applicable)
 # Example for Python venv:
 source venv/bin/activate  # Mac/Linux
