@@ -62,7 +62,6 @@ project-root/
 │── /services          # Model layer: database access methods (psycopg2)
 │── /templates         # View layer: HTML templates for Flask
 │── /static            # CSS, JS, images
-│── /tests             # (Planned) unit tests for backend methods
 ```
 
 ## Usage
