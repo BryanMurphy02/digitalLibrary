@@ -157,3 +157,12 @@ pip freeze > requirements.txt
 ## Roadmap
 🚧 Work in progress!  
 The roadmap will include upcoming features, enhancements, and stretch goals as development continues. Stay tuned for updates.
+
+## Resources & Documentation
+
+- [Flask](https://flask.palletsprojects.com/en/stable/) – Web framework used to build and serve the application
+- [psycopg2](https://www.psycopg.org/docs/) – PostgreSQL adapter for Python
+- [Flask-Login](https://flask-login.readthedocs.io/en/latest/) – User session management for Flask
+- [PostgreSQL](https://www.postgresql.org/docs/) – Database documentation and SQL reference
+- [Docker](https://docs.docker.com/) – Container platform documentation
+- [Docker Compose](https://docs.docker.com/compose/) – Multi-container Docker application documentation
