@@ -36,9 +36,8 @@ def home():
 
 @app.route('/library')
 def library():
-    books = master_route.get_books()
-    authors = master_route.get_authors()
-    return render_template("library.html", books=books, authors=authors)
+    library_table = master_route.get_library_table()
+    return render_template("library.html", library_table=library_table)
 
 
 @app.route('/profile')
