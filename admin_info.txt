@@ -1,3 +1,0 @@
-Username: Admin
-Email: useradmin@gmail.com
-Password: useradmin!@#$
