@@ -1,0 +1,53 @@
+{% extends "layout.html" %}
+
+{% block title %}
+My App
+{% endblock %}
+
+{% block content %}
+<body>
+
+    <div class="book-detail-container">
+        <div class="book-detail-header">
+            <div class="book-cover-container">
+                <div class="book-cover-container">
+                    <img src="{{ url_for('static', filename='images/books/the_way_of_kings.jpg') }}" alt="The Way of Kings">
+                </div>
+            </div>
+
+            <div class="book-header-info">
+                <h1 class="book-title">The Way of Kings</h1>
+                <p class="book-author">Brandon Sanderson</p>
+                <div class="book-genre-badge">Fantasy</div>
+                <p class="series-info">Part of the <span>The Stormlight Archive</span> series — Book <span>1</span></p>
+            </div>
+        </div>
+
+        <div class="book-detail-body">
+            <div class="detail-row">
+                <span class="detail-label">Author</span>
+                <span class="detail-value">Brandon Sanderson</span>
+            </div>
+            <div class="detail-row">
+                <span class="detail-label">Genre</span>
+                <span class="detail-value">Fantasy</span>
+            </div>
+            <div class="detail-row">
+                <span class="detail-label">Page Count</span>
+                <span class="detail-value">1007 pages</span>
+            </div>
+            <div class="detail-row">
+                <span class="detail-label">Series</span>
+                <span class="detail-value">The Stormlight Archive</span>
+            </div>
+            <div class="detail-row">
+                <span class="detail-label">Series Number</span>
+                <span class="detail-value">Book 1</span>
+            </div>
+        </div>
+
+        <a href="#" class="back-button">← Back to Library</a>
+    </div>
+
+</body>
+{% endblock %}
