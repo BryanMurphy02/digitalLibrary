@@ -11,13 +11,13 @@ My App
         <div class="book-detail-header">
             <div class="book-cover-container">
                 <div class="book-cover-container">
-                    <img src="{{ url_for('static', filename='images/books/the_way_of_kings.jpg') }}" alt="The Way of Kings">
+                    <img src="{{ url_for('static', filename=displayed_book.book_cover) }}" alt="The Way of Kings">
                 </div>
             </div>
 
             <div class="book-header-info">
-                <h1 class="book-title">The Way of Kings</h1>
-                <p class="book-author">Brandon Sanderson</p>
+                <h1 class="book-title">{{ displayed_book.book_title }}</h1>
+                <p class="book-author">{{ displayed_book.author_first_name }} {{ displayed_book.author_last_name }}</p>
                 <div class="book-genre-badge">Fantasy</div>
                 <p class="series-info">Part of the <span>The Stormlight Archive</span> series — Book <span>1</span></p>
             </div>
@@ -26,7 +26,7 @@ My App
         <div class="book-detail-body">
             <div class="detail-row">
                 <span class="detail-label">Author</span>
-                <span class="detail-value">Brandon Sanderson</span>
+                <span class="detail-value">{{ displayed_book.author_first_name }} {{ displayed_book.author_last_name }}</span>
             </div>
             <div class="detail-row">
                 <span class="detail-label">Genre</span>
@@ -34,15 +34,15 @@ My App
             </div>
             <div class="detail-row">
                 <span class="detail-label">Page Count</span>
-                <span class="detail-value">1007 pages</span>
+                <span class="detail-value">{{ displayed_book.page_count }}</span>
             </div>
             <div class="detail-row">
                 <span class="detail-label">Series</span>
-                <span class="detail-value">The Stormlight Archive</span>
+                <span class="detail-value">{{ displayed_book.series_name }}</span>
             </div>
             <div class="detail-row">
                 <span class="detail-label">Series Number</span>
-                <span class="detail-value">Book 1</span>
+                <span class="detail-value">{{ displayed_book.series_order }}</span>
             </div>
         </div>
 

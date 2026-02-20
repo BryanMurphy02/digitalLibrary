@@ -39,9 +39,10 @@ def library():
     library_table = master_route.get_library_table()
     return render_template("library.html", library_table=library_table)
 
-@app.route('/display_book')
-def display_book():
-    return render_template("display_book.html")
+@app.route('/book/<int:book_id>')
+def display_book(book_id):
+    displayed_book = master_route.get_book_display(book_id)
+    return render_template("display_book.html", displayed_book=displayed_book)
 
 
 @app.route('/profile')

@@ -9,6 +9,7 @@ My App
 
 <div class="book-grid">
     {% for book in library_table %}
+    <a href="{{ url_for('display_book', book_id=book.book_id) }}" class="book-card-link">
         <div class="book-card">
             <div class="book-cover">
                 {% if book.book_cover %}
@@ -23,6 +24,7 @@ My App
                 <p class="book-author">{{ book.author_first_name }} {{ book.author_last_name }}</p>
             </div>
         </div>
-    {% endfor %}
+    </a>
+{% endfor %}
 </div>
 {% endblock %}

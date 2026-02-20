@@ -39,6 +39,9 @@ def get_reading_calendar():
 def get_library_table():
     return to_dict(db_views.get_library_table())
 
+# return display info for when a book is clicked on
+def get_book_display(book_id):
+    return to_dict(db_views.get_display_book(book_id))
 
 
 #Id get functions
