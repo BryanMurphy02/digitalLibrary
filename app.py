@@ -64,6 +64,8 @@ def add_books():
         author_first_name = request.form.get('author_first_name')
         author_last_name = request.form.get('author_last_name')
         page_count = request.form.get('page_count') or None
+        series_name = request.form.get('series_name') or None
+        series_order = request.form.get('series_order') or None
 
         cover_file = request.files.get('cover') or None
 
@@ -81,6 +83,7 @@ def add_books():
 
             cover_file.save(os.path.join("static", cover_path))
 
+
         master_route.add_book(
             book_title,
             author_first_name,
@@ -88,6 +91,18 @@ def add_books():
             page_count,
             cover_path
         )
+        # Need to come back to this another time, a little too messy at the moment
+        # if(series_name):
+        #     # get the author id
+        #     full_name = author_first_name + " " + author_last_name
+        #     author_id = master_route.get_id("author", full_name)
+        #     book_id = master_route.get_id("book", book_title)
+        #     master_route.add_book_to_series(
+        #         book_id,
+        #         author_id,
+        #         series_name,
+        #         series_order
+        #     )
 
         flash("Book added successfully!")
         return redirect(url_for('add_books'))
