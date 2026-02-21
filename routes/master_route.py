@@ -43,6 +43,10 @@ def get_library_table():
 def get_book_display(book_id):
     return to_dict(db_views.get_display_book(book_id))
 
+# return books from added to a user's profile
+def get_user_books(user_id):
+    return to_dict(user_service.get_user_books(user_id))
+
 
 #Id get functions
 #Input the name of the service and the name, returns int
@@ -130,6 +134,8 @@ def get_dict_value(data, column: str):
 # adding books to the database from the front end
 def add_book(book_title, author_first_name, author_last_name, page_count=None, cover_path=None):
     book_service.add_book(book_title, author_first_name, author_last_name, cover_path, page_count)
+
+
 
 
 # def add_book_to_series(book_id, author_id, series_name, series_order):

@@ -124,6 +124,16 @@ def get_user_username(user_id):
 
 
 
+# Get all the books that are added to the user profile
+def get_user_books(user_id):
+    return query_database(
+        "SELECT * FROM user_book_library WHERE user_id = %s",
+        (user_id,),
+        fetchone=False
+    )
+
+
+
 
 #Testing
 # add_user("test2@gmail.com", "Bryan Murphy", "BryanLovesJillian")

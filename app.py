@@ -49,7 +49,11 @@ def display_book(book_id):
 @login_required
 def profile():
     user_data = master_route.get_row_by_id("user", current_user.id)
-    return render_template("profile.html", user_data=user_data)
+    user_books = master_route.get_user_books(current_user.id)
+    return render_template("profile.html", user_data=user_data, user_books=user_books)
+
+
+
 
 @app.route('/reading_calendar')
 @login_required
@@ -64,8 +68,8 @@ def add_books():
         author_first_name = request.form.get('author_first_name')
         author_last_name = request.form.get('author_last_name')
         page_count = request.form.get('page_count') or None
-        series_name = request.form.get('series_name') or None
-        series_order = request.form.get('series_order') or None
+        # series_name = request.form.get('series_name') or None
+        # series_order = request.form.get('series_order') or None
 
         cover_file = request.files.get('cover') or None
 
