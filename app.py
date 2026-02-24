@@ -12,7 +12,8 @@ import os
 from routes import master_route, user_route
 
 
-load_dotenv()
+load_dotenv(override=False)
+
 # Flask constructor takes the name of 
 # current module (__name__) as argument.
 app = Flask(__name__)
