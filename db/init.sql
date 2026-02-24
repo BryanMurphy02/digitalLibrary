@@ -10,7 +10,6 @@
 SET statement_timeout = 0;
 SET lock_timeout = 0;
 SET idle_in_transaction_session_timeout = 0;
-SET transaction_timeout = 0;
 SET client_encoding = 'UTF8';
 SET standard_conforming_strings = on;
 SELECT pg_catalog.set_config('search_path', '', false);
@@ -352,8 +351,7 @@ ALTER TABLE public.users OWNER TO postgres;
 
 -- Admin account seed
 INSERT INTO public.users (id, email, password_hash, bio, profile_picture, created_at, last_login, favorite_book, username) 
-VALUES (1, 'useradmin@gmail.com', 'scrypt:32768:8:1$ik9nTzIftzI8wUzw$a65206a33ad629e2f73bb54b5fee502bef8cf8780797e908b0fbbe66afc9fea241c9f92e3989c88eace678fc41271ebbb5776afcdf255532913d54aab8965b76', 'This is the Admin account. The Admin account has the ability to add books to the general library of the app amongst other higher level capabilities', 'images/users/admin_profile_picture.png', '2026-01-21 11:43:12.347303', NULL, NULL, 'Admin')
-ON CONFLICT (id) DO NOTHING;
+VALUES (1, 'useradmin@gmail.com', 'scrypt:32768:8:1$ik9nTzIftzI8wUzw$a65206a33ad629e2f73bb54b5fee502bef8cf8780797e908b0fbbe66afc9fea241c9f92e3989c88eace678fc41271ebbb5776afcdf255532913d54aab8965b76', 'This is the Admin account. The Admin account has the ability to add books to the general library of the app amongst other higher level capabilities', 'images/users/admin_profile_picture.png', '2026-01-21 11:43:12.347303', NULL, NULL, 'Admin');
 
 --
 -- TOC entry 230 (class 1259 OID 16458)
