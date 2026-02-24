@@ -5,20 +5,19 @@ from flask import request, redirect, url_for, flash
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import LoginManager, login_user, logout_user, login_required, current_user
 from werkzeug.utils import secure_filename
+from dotenv import load_dotenv
 import uuid
 import os
 
 from routes import master_route, user_route
 
-# Needs to be changed when deploying app
-import secrets
 
+load_dotenv()
 # Flask constructor takes the name of 
 # current module (__name__) as argument.
 app = Flask(__name__)
 
-# Needs to change this if ever not simply in dev mode
-app.secret_key = "bryanlovesjillianmore"
+app.secret_key = os.environ.get("SECRET_KEY")
 
 
 # Creating the login object
@@ -165,4 +164,5 @@ if __name__ == '__main__':
 
     # run() method of Flask class runs the application 
     # on the local development server.
-    app.run(debug=True)
+    # host added when containing flask with docker
+    app.run(host="0.0.0.0", debug=True)
