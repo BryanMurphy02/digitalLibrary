@@ -114,8 +114,8 @@ The `SECRET_KEY` is used by Flask to securely sign session cookies. Generate a s
 
 | OS | Command |
 |---|---|
-| Windows / Linux | `python -c "import secrets; print(secrets.token_hex(32))"` |
-| Mac | `python3 -c "import secrets; print(secrets.token_hex(32))"` |
+| Windows | `python -c "import secrets; print(secrets.token_hex(32))"` |
+| Mac / Linux | `python3 -c "import secrets; print(secrets.token_hex(32))"` |
 
 Copy the output and paste it as the value for `SECRET_KEY` in your `.env` file.
 
