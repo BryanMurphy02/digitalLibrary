@@ -12,5 +12,39 @@ services:
       - postgres_data:/var/lib/postgresql/data
       - ./db/init.sql:/docker-entrypoint-initdb.d/init.sql
 
+  web:
+    # Instead of pulling a pre-built image, build one using the
+    # Dockerfile found in the current directory (.)
+    build: .
+    container_name: digital_library_web
+    environment:
+      # On Docker's internal network, each service is reachable by its
+      # service name. "db" refers to the db service defined above.
+      # This replaces "localhost" which won't work between containers.
+      DB_HOST: db
+      # Flask always talks to Postgres on its internal port 5432,
+      # regardless of what port is exposed to the outside world.
+      DB_PORT: 5432
+      # These pull their values from the .env file as normal
+      DB_NAME: ${DB_NAME}
+      DB_USER: ${DB_USER}
+      DB_PASSWORD: ${DB_PASSWORD}
+      SECRET_KEY: ${SECRET_KEY}d
+    ports:
+      # Maps port 5000 on your machine to port 5000 in the container
+      # so you can visit localhost:5000 in your browser as normal
+      - "5000:5000"
+    # Start the db container before this one, so the database is
+    # ready before Flask tries to connect to it
+    depends_on:
+      - db
+    volumes:
+      # Mounts your local static folder into the container so that
+      # uploaded files (e.g. book covers) are saved on your actual
+      # machine and not lost when the container restarts
+      - ./static:/app/static
+
 volumes:
+  # Formally declares the named volume that persists the database
+  # data even if the db container is destroyed
   postgres_data:
