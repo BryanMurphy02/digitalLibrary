@@ -114,10 +114,6 @@ def update_book(book_id, **kwargs):
     row = query_database(query, tuple(values), fetchone=True)
     return row
 
-#delete a book from the database
-def delete_book(book_id):
-    query_database("DELETE FROM books WHERE id = %s", (book_id,))
-
 
 #User_book table methods
 
