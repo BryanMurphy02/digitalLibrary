@@ -12,7 +12,7 @@ def get_all_authors():
 
 #Returns row of author table matching the inputted id
 def get_author_by_id(id):
-    return query_database("SELECT * FROM author WHERE id = %s", (id,))
+    return query_database("SELECT * FROM author WHERE id = %s", (id,), fetchone=True)
 
 #Checks to see if there is an author in the database by first and last name
 #returns none if not found or id int
@@ -36,13 +36,7 @@ def add_author(first_name, last_name):
             fetchone=True
         )
         return get_author_by_name(first_name, last_name)
-    else:
-        return get_author_by_name(first_name, last_name)
-
-#get author id by first and last name and returns id INT
-def get_author_id(first_name, last_name):
-    row = query_database("SELECT id FROM author WHERE first_name = %s AND last_name = %s", (first_name,last_name), fetchone=True)
-    return row['id'] if row else None
+    return result
 
 #update author information
 #updates the author by the provided information
@@ -86,7 +80,3 @@ def delete_author(author_id):
 
 
 #Testing
-# print(get_author_name(3))
-# add_author("Jillian", "Desmond")
-# delete_author(get_author_id("Jillian", "Murphy"))
-# update_author(get_author_id("Jillian", "Desmond"), last_name="Murphy")

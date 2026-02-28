@@ -53,7 +53,7 @@ def get_user_books(user_id):
 def get_id(service: str, name: str):
     services = {
         "book": book_service.get_book_id, 
-        "author": author_service.get_author_id, 
+        "author": author_service.get_author_by_name, 
         "genre": genre_service.get_genre_id, 
         "series": series_service.get_series_id, 
         "user": user_service.get_user_id
