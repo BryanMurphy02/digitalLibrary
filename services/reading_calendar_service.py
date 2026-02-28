@@ -12,7 +12,7 @@ def get_all_reading_calendar():
 
 #Returns row of reading calendar table matching the inputted session_id
 def get_reading_calendar_by_id(id):
-    return query_database("SELECT * FROM reading_calendar WHERE session_id = %s", (id,))
+    return query_database("SELECT * FROM reading_calendar WHERE session_id = %s", (id,), fetchone=True)
 
 #add reading entry to the calendar
 #defaults to an entry for current date unless another date is passed in
