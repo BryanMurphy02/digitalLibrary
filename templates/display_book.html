@@ -1,0 +1,59 @@
+{% extends "layout.html" %}
+
+{% block title %}
+My App
+{% endblock %}
+
+{% block content %}
+<body>
+
+    <div class="book-detail-container">
+        <div class="book-detail-header">
+            <div class="book-cover-container">
+                <img src="{{ url_for('static', filename=displayed_book.book_cover) }}" alt="{{ displayed_book.book_title }}">
+            </div>
+
+            <div class="book-header-info">
+                <h1 class="book-detail-title">{{ displayed_book.book_title }}</h1>
+                <p class="book-detail-author">{{ displayed_book.author_first_name }} {{ displayed_book.author_last_name }}</p>
+                <div class="book-genre-badges">
+                    {% if displayed_book.genres %}
+                        {% for genre in displayed_book.genres.split(', ') %}
+                            <div class="book-genre-badge">{{ genre }}</div>
+                        {% endfor %}
+                    {% else %}
+                        <div class="book-genre-badge">No Genre</div>
+                    {% endif %}
+                </div>
+                {% if displayed_book.series_name %}
+                    <p class="series-info">Part of the <span>{{ displayed_book.series_name }}</span> series — Book <span>{{ displayed_book.series_order }}</span></p>
+                {% endif %}
+            </div>
+        </div>
+
+        <div class="book-detail-body">
+            <div class="detail-row">
+                <span class="detail-label">Author</span>
+                <span class="detail-value">{{ displayed_book.author_first_name }} {{ displayed_book.author_last_name }}</span>
+            </div>
+            {% if displayed_book.series_name %}
+                <div class="detail-row">
+                    <span class="detail-label">Series</span>
+                    <span class="detail-value">{{ displayed_book.series_name }}</span>
+                </div>
+                <div class="detail-row">
+                    <span class="detail-label">Series Number</span>
+                    <span class="detail-value">{{ displayed_book.series_order }}</span>
+                </div>
+            {% endif %}
+            <div class="detail-row">
+                <span class="detail-label">Page Count</span>
+                <span class="detail-value">{{ displayed_book.page_count }}</span>
+            </div>
+        </div>
+
+        <a href="{{ url_for('library') }}" class="back-button">← Back to Library</a>
+    </div>
+
+</body>
+{% endblock %}

@@ -49,13 +49,18 @@ def get_genre_of_book(book_id):
 
 # check to see if a book is already within database
 # Returns true if book is in database (based off title and author) and returns false if not
-def check_book(book_name, book_author):
-    row = get_book_by_title(book_name)
-    row2 = get_books_by_author(book_author)
-    if(row is None or row is None):
-        return True
-    else:
+def check_book(book_name, author_first_name, author_last_name):
+    author_id = get_author_by_name(author_first_name, author_last_name)
+    if author_id is None:
         return False
+    
+    books_by_author = get_books_by_author(author_id)
+    
+    for book in books_by_author:
+        if book['title'].lower() == book_name.lower():
+            return True
+    
+    return False
 
 #add/create books
 #required params are book title, author first + last name
@@ -114,56 +119,22 @@ def update_book(book_id, **kwargs):
     row = query_database(query, tuple(values), fetchone=True)
     return row
 
-#delete a book from the database
-def delete_book(book_id):
-    query_database("DELETE FROM books WHERE id = %s", (book_id,))
-
 
 #User_book table methods
 
-#returns session ids for inputted book and user
-def get_user_book_session(book_id, user_id):
-    return query_database("SELECT session_id FROM user_books WHERE book_id = %s AND user_id = %s", (book_id, user_id))
-
-#returns the status of a book in a user's library
-def get_user_book_status(book_id, user_id):
-    return query_database("SELECT status FROM user_books WHERE book_id = %s AND user_id = %s", (book_id, user_id), fetchone=True)
-
-# returns the start_date of a book in a user's library
-def get_user_book_start_date(book_id, user_id):
+# returns entire row for a book added to a user given the book_id and the user_id
+def get_user_book(book_id, user_id):
     return query_database(
-        "SELECT start_date FROM user_books WHERE book_id = %s AND user_id = %s",
+        "SELECT * FROM user_books WHERE book_id = %s AND user_id = %s",
         (book_id, user_id),
         fetchone=True
     )
 
-#returns the completed_date of a book in a user's library
-def get_user_book_completed_date(book_id, user_id):
-    return query_database(
-        "SELECT completed_date FROM user_books WHERE book_id = %s AND user_id = %s",
-        (book_id, user_id),
-        fetchone=True
-    )
 
-#returns the user_id for a given book session (if needed)
-def get_user_book_user_id(book_id, session_id):
-    return query_database(
-        "SELECT user_id FROM user_books WHERE book_id = %s AND session_id = %s",
-        (book_id, session_id),
-        fetchone=True
-    )
-
-#returns the book_id for a given user session (if needed)
-def get_user_book_book_id(user_id, session_id):
-    return query_database(
-        "SELECT book_id FROM user_books WHERE user_id = %s AND session_id = %s",
-        (user_id, session_id),
-        fetchone=True
-    )
 
 #add a book to user's to be read books (To Be Read set as default in postgres database) if not alread in list
 def add_user_book(book_id, user_id):
-    row = get_user_book_status(book_id, user_id)
+    row = get_user_book(book_id, user_id)
 
     if row and row['status'] == 'To Be Read':
         return {"error":"This book is already in your To Be Read list"}
@@ -174,26 +145,6 @@ def add_user_book(book_id, user_id):
     )
 
 
-
-#dynamic get methods for user_book table (chatGPT written)
-def get_user_book_column(column_name, book_id, user_id):
-    allowed_columns = {'session_id', 'status', 'start_date', 'completed_date', 'user_id', 'book_id'}
-    
-    if column_name not in allowed_columns:
-        raise ValueError(f"Invalid column: {column_name}")
-    
-    query = f"SELECT {column_name} FROM user_books WHERE book_id = %s AND user_id = %s"
-    return query_database(query, (book_id, user_id), fetchone=True)
-
-# Generic getter for any column by session_id
-def get_user_book_column_by_session(column_name, session_id):
-    allowed_columns = {'session_id', 'status', 'start_date', 'completed_date', 'user_id', 'book_id'}
-    
-    if column_name not in allowed_columns:
-        raise ValueError(f"Invalid column: {column_name}")
-    
-    query = f"SELECT {column_name} FROM user_books WHERE session_id = %s"
-    return query_database(query, (session_id,), fetchone=True)
 
 
 

@@ -1,5 +1,5 @@
 
-from services import book_service, author_service, genre_service, reading_calendar_service, series_service, user_service
+from services import book_service, author_service, genre_service, reading_calendar_service, series_service, user_service, db_views
 from psycopg2.extras import RealDictRow
 
 
@@ -35,6 +35,17 @@ def get_users():
 def get_reading_calendar():
     return to_dict(reading_calendar_service.get_all_reading_calendar())
 
+# returning from a specific database view called library_table
+def get_library_table():
+    return to_dict(db_views.get_library_table())
+
+# return display info for when a book is clicked on
+def get_book_display(book_id):
+    return to_dict(db_views.get_display_book(book_id))
+
+# return books from added to a user's profile
+def get_user_books(user_id):
+    return to_dict(user_service.get_user_books(user_id))
 
 
 #Id get functions
@@ -123,3 +134,8 @@ def get_dict_value(data, column: str):
 # adding books to the database from the front end
 def add_book(book_title, author_first_name, author_last_name, page_count=None, cover_path=None):
     book_service.add_book(book_title, author_first_name, author_last_name, cover_path, page_count)
+
+
+
+
+# def add_book_to_series(book_id, author_id, series_name, series_order):

@@ -25,7 +25,7 @@ Digital Library allows users to explore books with detailed information, add the
 ## Tech Stack / Built With
 
 - 🐘 **PostgreSQL** – Relational database to store book, user, and library data.  
-- 🐳 **Docker** – Containerized PostgreSQL and Flask app for a consistent, reproducible environment.  
+- 🐳 **Docker** – Containerized PostgreSQL for a consistent, reproducible database environment.  
 - 🔗 **psycopg2** – Python library for connecting and interacting with PostgreSQL.  
 - 🐍 **Python** – Core backend logic including data access methods (GET/SET).  
 - 🌐 **Flask** – Lightweight Python web framework for serving the application.  
@@ -58,8 +58,7 @@ project-root/
 │── app.py             # Flask entry point (controllers / routes)
 │── database.py        # Psycopg2 setup
 │── requirements.txt   # Python dependencies
-│── Dockerfile         # Docker image definition for the Flask app
-│── docker-compose.yml # Docker configuration for Flask + PostgreSQL
+│── docker-compose.yml # Docker configuration for PostgreSQL
 │── .env.example       # Environment variable template
 │── /db                # init.sql schema script for Docker
 │── /database          # SQL scripts, migrations, ERD diagrams
@@ -68,110 +67,48 @@ project-root/
 │── /static            # CSS, JS, images 
 ```
 
-## Installation & Setup
+## Docker
 
-Everything runs inside Docker — no need to install Python, PostgreSQL, or any dependencies manually on your machine.
+The PostgreSQL database runs inside a Docker container, keeping the database environment isolated, consistent, and reproducible across machines. The Flask application runs locally and connects to the containerized database.
 
 ### Prerequisites
 
 - [Docker Desktop](https://www.docker.com/products/docker-desktop/) installed and running
-- [Git](https://git-scm.com/) installed
 
-### Step 1 — Clone the repository
+### How It Works
 
-```bash
-git clone <your-repo-url>
-cd digitalLibrary
-```
+The `docker-compose.yml` file defines the PostgreSQL container. A named Docker volume stores the database files independently of the container, meaning data persists even if the container is stopped or removed. When the container is started for the first time with an empty volume, it automatically runs `db/init.sql` to create all tables, enums, constraints, and relationships.
 
-### Step 2 — Create your `.env` file
+### Environment Variables
 
-The `.env` file holds all secrets and environment variables. It is never committed to the repository. Copy the example file to create your own:
+Database credentials and connection details are managed through a `.env` file that is never committed to the repository. Copy the example file and fill in your own values:
 
 ```bash
 cp .env.example .env
 ```
 
-Then open `.env` and fill in your values:
-
+`.env.example`:
 ```
 DB_HOST=localhost
 DB_PORT=5433
 DB_NAME=digital_library_docker
 DB_USER=postgres
-DB_PASSWORD=your_password_here
-
-SECRET_KEY=your_generated_secret_key_here
-
-ADMIN_USERNAME=Admin
-ADMIN_EMAIL=useradmin@gmail.com
-ADMIN_PASSWORD=useradmin!@#$
+DB_PASSWORD=
 ```
 
-### Step 3 — Generate a secret key
-
-The `SECRET_KEY` is used by Flask to securely sign session cookies. Generate a strong random key by running the following in your terminal:
-
-| OS | Command |
-|---|---|
-| Windows | `python -c "import secrets; print(secrets.token_hex(32))"` |
-| Mac / Linux | `python3 -c "import secrets; print(secrets.token_hex(32))"` |
-
-Copy the output and paste it as the value for `SECRET_KEY` in your `.env` file.
-
-### Step 4 — Build and start the application
+### Starting the Database
 
 ```bash
-docker compose up --build
-```
-
-This will:
-- Pull the PostgreSQL image
-- Build the Flask application image from the `Dockerfile`
-- Run `db/init.sql` to create all tables, enums, and seed data (including the admin account) on first startup
-- Start both containers
-
-Once running, open your browser and go to `http://localhost:5000`.
-
-To run in the background instead:
-
-```bash
-docker compose up --build -d
-```
-
----
-
-## Docker
-
-The application runs fully inside Docker — the PostgreSQL database and the Flask web app each run in their own container, orchestrated by `docker-compose.yml`.
-
-### How It Works
-
-The `docker-compose.yml` file defines both containers. A named Docker volume stores the database files independently of the container, meaning data persists even if the container is stopped or removed. When the database container is started for the first time with an empty volume, it automatically runs `db/init.sql` to create all tables, enums, constraints, relationships, and seed data.
-
-### Environment Variables
-
-All credentials and secrets are managed through a `.env` file that is never committed to the repository. See [Installation & Setup](#installation--setup) for how to create it.
-
-### Common Docker Commands
-
-```bash
-# Build and start all containers
-docker compose up --build
-
-# Start in the background (detached mode)
+# Start the PostgreSQL container in the background
 docker compose up -d
 
-# View running containers
+# Verify the container is running
 docker compose ps
 
-# View live logs
-docker compose logs -f
-
-# Stop all containers (data is preserved)
+# Stop the container (data is preserved in the volume)
 docker compose down
 
-# Stop all containers and delete all data (full reset)
+# Stop the container and delete all data (full reset)
 docker compose down -v
 ```
 
@@ -189,18 +126,32 @@ Port `5433` is used to avoid conflicts with any locally installed PostgreSQL ins
 
 ## Usage
 
-Once the application is running via `docker compose up`, visit `http://localhost:5000` in your browser.
+After setting up the project (see Installation & Setup), users can:
 
-The admin account is automatically created when the database is initialized. Use the credentials from your `.env` file to log in as admin.
-
-For development reference:
-
+1. **Run the Application**
 ```bash
-# Update the requirements file after installing new packages locally
-pip freeze > requirements.txt
+# Create virtual environment (if applicable)
+python3 -m venv venv
 
-# Run a specific file within the project
+# Activate your virtual environment (if applicable)
+# Example for Python venv:
+source venv/bin/activate  # Mac/Linux
+venv\Scripts\activate     # Windows
+
+# Install from requirements
+pip install -r requirements.txt
+
+# Start the database container
+docker compose up -d
+
+# Run Flask app
+python app.py
+
+# Run a specific file within project
 python -m folder_name.file_name
+
+# Update the requirements file
+pip freeze > requirements.txt
 ```
 
 ## Roadmap

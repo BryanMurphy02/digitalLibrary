@@ -8,27 +8,23 @@ My App
 <h1 class="page-title">Library</h1>
 
 <div class="book-grid">
-    {% for book in books %}
+    {% for book in library_table %}
+    <a href="{{ url_for('display_book', book_id=book.book_id) }}" class="book-card-link">
         <div class="book-card">
             <div class="book-cover">
-                {% if book.cover %}
-                    <img src="{{ url_for('static', filename=book.cover) }}" alt="{{ book.title }}">
+                {% if book.book_cover %}
+                    <img src="{{ url_for('static', filename=book.book_cover) }}" alt="{{ book.book_title }}">
                 {% else %}
                     <div class="no-cover">No Cover</div>
                 {% endif %}
             </div>
 
             <div class="book-info">
-                <h3 class="book-title">{{ book.title }}</h3>
-                {% set temp = book.author_id %}
-                {% for author in authors %}
-                  {% if author.id == temp %}
-                      {% set name = author.first_name + " " + author.last_name %}
-                      <p class="book-author">{{ name }}</p>
-                  {% endif %}
-                {% endfor %}
+                <h3 class="book-title">{{ book.book_title }}</h3>
+                <p class="book-author">{{ book.author_first_name }} {{ book.author_last_name }}</p>
             </div>
         </div>
-    {% endfor %}
+    </a>
+{% endfor %}
 </div>
 {% endblock %}

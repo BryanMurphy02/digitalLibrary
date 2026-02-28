@@ -12,7 +12,11 @@ Profile
 
         <div class="profile-header">
             <div class="profile-picture">
-                <img src="{{ url_for('static', filename=user_data.profile_picture) }}" alt="{{ user_data.username }}">
+                {% if user_data.profile_picture %}
+                    <img src="{{ url_for('static', filename=user_data.profile_picture) }}" alt="{{ user_data.username }}">
+                {% else %}
+                    <div class="no-cover">No Picture</div>
+                {% endif %}
             </div>
 
 
@@ -41,6 +45,25 @@ Profile
                         </a>
                     </p>
                 </div>
+        </div>
+
+        <div class="book-grid">
+            {% for book in user_books %}
+                    <div class="book-card">
+                        <div class="book-cover">
+                            {% if book.book_cover %}
+                                <img src="{{ url_for('static', filename=book.book_cover) }}" alt="{{ book.book_title }}">
+                            {% else %}
+                                <div class="no-cover">No Cover</div>
+                            {% endif %}
+                        </div>
+
+                        <div class="book-info">
+                            <h3 class="book-title">{{ book.book_title }}</h3>
+                            <p class="book-author">{{ book.author_first_name }} {{ book.author_last_name }}</p>
+                        </div>
+                    </div>
+            {% endfor %}
         </div>
 
     </div>
