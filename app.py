@@ -93,8 +93,15 @@ def add_books():
         # get author_id or add the author
         author_id = master_route.add_author(author_first_name, author_last_name)
 
+        # series logic
+        series_id = None
+        if series_name:
+            series_id = master_route.get_id("series", series_name)
+            if series_id is None:
+                series_id = master_route.add_series(series_name, author_id)
+
         # adding to database
-        book_id = master_route.add_book(book_title, author_id, page_count, cover_path)
+        book_id = master_route.add_book(book_title, author_id, page_count, cover_path, series_id, series_order)
 
 
         flash("Book added successfully!")

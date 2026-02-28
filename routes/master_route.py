@@ -135,11 +135,14 @@ def add_author(first_name, last_name):
     return author_service.add_author(first_name, last_name)
 
 # adding books to the database from the front end
-def add_book(book_title, author_id, page_count=None, cover_path=None):
-    row = book_service.add_book(book_title, author_id, cover_path, page_count)
+def add_book(book_title, author_id, page_count=None, cover_path=None, series_id=None, series_order=None):
+    row = book_service.add_book(book_title, author_id, cover_path, page_count, series_id, series_order)
     return row['id'] if row else None
 
-
+# adding a series
+def add_series(series_name, author_id):
+    row = series_service.add_series(series_name, author_id)
+    return row['id']
 
 
 # def add_book_to_series(book_id, author_id, series_name, series_order):
