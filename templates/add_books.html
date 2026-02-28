@@ -10,30 +10,13 @@ My App
 
 <form method="POST" action="{{ url_for('add_books') }}" enctype="multipart/form-data">
 
+    <!-- ========================
+         BOOK DETAILS
+    ========================= -->
     <div>
         <label for="book_title">Book Title</label>
         <input type="text" id="book_title" name="book_title" required>
     </div>
-
-    <div>
-        <label for="author_first_name">Author First Name</label>
-        <input type="text" id="author_first_name" name="author_first_name" required>
-    </div>
-
-    <div>
-        <label for="author_last_name">Author Last Name</label>
-        <input type="text" id="author_last_name" name="author_last_name" required>
-    </div>
-
-    <!-- <div>
-        <label for="series_name">Series Name</label>
-        <input type="text" id="series_name" name="series_name">
-    </div>
-
-    <div>
-        <label for="series_order">Series Order</label>
-        <input type="text" id="series_order" name="series_order">
-    </div> -->
 
     <div>
         <label for="page_count">Page Count</label>
@@ -45,10 +28,56 @@ My App
         <input type="file" id="cover" name="cover" accept="image/*">
     </div>
 
+    <!-- ========================
+         AUTHOR
+         Note: To avoid duplicate author entries, consider pre-populating
+         this as a searchable dropdown (passing existing authors from the
+         backend) rather than relying on free-text input alone.
+    ========================= -->
+    <div>
+        <label for="author_first_name">Author First Name</label>
+        <input type="text" id="author_first_name" name="author_first_name" required>
+    </div>
+
+    <div>
+        <label for="author_last_name">Author Last Name</label>
+        <input type="text" id="author_last_name" name="author_last_name" required>
+    </div>
+
+    <!-- ========================
+         SERIES (OPTIONAL)
+         Leave both fields blank if the book is a standalone title.
+    ========================= -->
+    <div>
+        <label for="series_name">Series Name (optional)</label>
+        <input type="text" id="series_name" name="series_name">
+    </div>
+
+    <div>
+        <label for="series_order">Series Order (optional)</label>
+        <input type="number" id="series_order" name="series_order" min="1">
+    </div>
+
+    <!-- ========================
+         GENRES
+         Renders checkboxes from the genres list passed in by the backend.
+         Backend should pass: genres = [(id, name), ...]
+         e.g. render_template('add_book.html', genres=genres)
+    ========================= -->
+    <div>
+        <label>Genres</label>
+        <div id="genres">
+            {% for genre in genres %}
+            <div>
+                <input type="checkbox" id="genre_{{ genre.id }}" name="genres" value="{{ genre.id }}">
+                <label for="genre_{{ genre.id }}">{{ genre.name }}</label>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+
     <button type="submit">Add Book</button>
 
 </form>
-
-
 
 {% endblock %}

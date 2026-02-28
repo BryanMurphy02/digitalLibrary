@@ -64,30 +64,33 @@ def reading_calendar():
 @login_required
 def add_books():
     if request.method == 'POST':
+        # required
         book_title = request.form.get('book_title')
         author_first_name = request.form.get('author_first_name')
         author_last_name = request.form.get('author_last_name')
-        page_count = request.form.get('page_count') or None
-        # series_name = request.form.get('series_name') or None
-        # series_order = request.form.get('series_order') or None
-
-        cover_file = request.files.get('cover') or None
 
         if not book_title or not author_first_name or not author_last_name:
             flash("Title and author fields are required.")
             return redirect(url_for('add_books'))
-        
+
+        # optional
+        page_count = request.form.get('page_count') or None
+        series_name = request.form.get('series_name') or None
+        series_order = request.form.get('series_order') or None
+        genre_ids = request.form.getlist('genres')  # Returns a list of selected genre IDs
+
+        # book cover processing
+        cover_file = request.files.get('cover') or None
         cover_path = None
+
         if cover_file and cover_file.filename:
             filename = secure_filename(cover_file.filename)
             ext = filename.rsplit('.', 1)[1]
-
             filename = f"{uuid.uuid4()}.{ext}"
             cover_path = f"images/books/{filename}"
-
             cover_file.save(os.path.join("static", cover_path))
 
-
+        # adding to database
         master_route.add_book(
             book_title,
             author_first_name,
