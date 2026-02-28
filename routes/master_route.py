@@ -130,10 +130,14 @@ def get_dict_value(data, column: str):
     return data[0].get(column)
 
 
+# adding authors to the database from the front end
+def add_author(first_name, last_name):
+    return author_service.add_author(first_name, last_name)
 
 # adding books to the database from the front end
-def add_book(book_title, author_first_name, author_last_name, page_count=None, cover_path=None):
-    book_service.add_book(book_title, author_first_name, author_last_name, cover_path, page_count)
+def add_book(book_title, author_id, page_count=None, cover_path=None):
+    row = book_service.add_book(book_title, author_id, cover_path, page_count)
+    return row['id'] if row else None
 
 
 

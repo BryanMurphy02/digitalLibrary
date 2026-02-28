@@ -60,10 +60,7 @@ def check_book(book_name, author_first_name, author_last_name):
 #add/create books
 #required params are book title, author first + last name
 #optional params cover, page count, series id, author id, series order
-def add_book(book_title, author_first_name, author_last_name, cover=None, page_count=None, series_id=None, author_id=None, series_order=None):
-    #Get the author id if not passed in
-    if author_id is None:
-        author_id = add_author(author_first_name, author_last_name)
+def add_book(book_title, author_id, cover=None, page_count=None, series_id=None, series_order=None):
 
     row = query_database(
         "INSERT INTO books (title, cover, page_count, series_id, author_id, series_order) VALUES (%s,%s,%s,%s,%s,%s) RETURNING *;",

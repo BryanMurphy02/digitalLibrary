@@ -30,12 +30,12 @@ def get_author_name(author_id):
 def add_author(first_name, last_name):
     result = get_author_by_name(first_name, last_name)
     if result is None:
-        query_database(
+        new_author = query_database(
             "INSERT INTO author (first_name, last_name) VALUES (%s, %s) RETURNING *;",
             (first_name, last_name),
             fetchone=True
         )
-        return get_author_by_name(first_name, last_name)
+        return new_author['id']
     return result
 
 #update author information

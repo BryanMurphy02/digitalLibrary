@@ -90,26 +90,12 @@ def add_books():
             cover_path = f"images/books/{filename}"
             cover_file.save(os.path.join("static", cover_path))
 
+        # get author_id or add the author
+        author_id = master_route.add_author(author_first_name, author_last_name)
+
         # adding to database
-        master_route.add_book(
-            book_title,
-            author_first_name,
-            author_last_name,
-            page_count,
-            cover_path
-        )
-        # Need to come back to this another time, a little too messy at the moment
-        # if(series_name):
-        #     # get the author id
-        #     full_name = author_first_name + " " + author_last_name
-        #     author_id = master_route.get_id("author", full_name)
-        #     book_id = master_route.get_id("book", book_title)
-        #     master_route.add_book_to_series(
-        #         book_id,
-        #         author_id,
-        #         series_name,
-        #         series_order
-        #     )
+        book_id = master_route.add_book(book_title, author_id, page_count, cover_path)
+
 
         flash("Book added successfully!")
         return redirect(url_for('add_books'))
