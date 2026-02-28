@@ -1,5 +1,4 @@
 from database import query_database
-from services.author_service import get_author_by_name
 
 #returns a row from the table
 def get_row():
@@ -12,7 +11,7 @@ def get_all_series():
 
 #Returns row of series table matching the inputted id
 def get_series_by_id(id):
-    return query_database("SELECT * FROM series WHERE id = %s", (id,))
+    return query_database("SELECT * FROM series WHERE id = %s", (id,), fetchone=True)
 
 #Add series
 def add_series(name, author_id):
@@ -66,6 +65,7 @@ def get_series_id(name):
     row = query_database("SELECT id FROM series WHERE name = %s", (name,), fetchone=True)
     if row:
         return row['id']
+    return None
     
     # # Series not found, add it
     # new_series = add_series(name, author_id)
@@ -79,8 +79,5 @@ def get_series(series_id):
 
 
 #Testing
-# add_series("Throne of Glass", get_author_by_name("Sarah J.", "Maas"))
-# books = get_series(get_series_id("Throne of Glass"))
-# for book in books:
-#     print(book)
+
 
