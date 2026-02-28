@@ -15,12 +15,7 @@ def get_all_books():
 
 #Returns row of books table matching the inputted id
 def get_book_by_id(id):
-    return query_database("SELECT * FROM books WHERE id = %s", (id,))
-
-#returns the book specific to the id that is passed in
-#important that book id is a single-element tuple
-def get_book(book_id):
-    return query_database("SELECT * FROM books WHERE id = %s", (book_id,), fetchone=True)
+    return query_database("SELECT * FROM books WHERE id = %s", (id,), fetchone=True)
 
 #get book id by book name and returns id INT
 def get_book_id(book_title):
