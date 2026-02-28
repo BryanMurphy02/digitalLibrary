@@ -49,13 +49,18 @@ def get_genre_of_book(book_id):
 
 # check to see if a book is already within database
 # Returns true if book is in database (based off title and author) and returns false if not
-def check_book(book_name, book_author):
-    row = get_book_by_title(book_name)
-    row2 = get_books_by_author(book_author)
-    if(row is None or row is None):
-        return True
-    else:
+def check_book(book_name, author_first_name, author_last_name):
+    author_id = get_author_by_name(author_first_name, author_last_name)
+    if author_id is None:
         return False
+    
+    books_by_author = get_books_by_author(author_id)
+    
+    for book in books_by_author:
+        if book['title'].lower() == book_name.lower():
+            return True
+    
+    return False
 
 #add/create books
 #required params are book title, author first + last name
