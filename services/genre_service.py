@@ -1,6 +1,4 @@
 from database import query_database
-from services.book_service import get_book_id
-from services.series_service import get_series, get_series_id
 
 #Genre table
 
@@ -15,7 +13,7 @@ def get_all_genres():
 
 #Returns row of genre table matching the inputted id
 def get_genre_by_id(id):
-    return query_database("SELECT * FROM genre WHERE id = %s", (id,))
+    return query_database("SELECT * FROM genre WHERE id = %s", (id,), fetchone=True)
 
 #add genre
 def add_genre(name):
@@ -89,31 +87,6 @@ def delete_genre(genre_id):
 def add_book_genre_map(book_id, genre_id):
     return query_database("INSERT INTO book_genre_map (book_id, genre_id) VALUES (%s, %s) RETURNING *;", (book_id, genre_id), fetchone=True)
 
-#get books in genre
-def get_books_in_genre(genre_name=None, genre_id=None):
-    if not genre_name and not genre_id:
-        raise ValueError("Either genre_name or genre_id must be provided")
-
-    if genre_id:
-        row = query_database("SELECT book_id FROM book_genre_map WHERE genre_id = %s",(genre_id,),fetchone=False)
-
-    if genre_name:
-        gid = get_genre_id(genre_name)
-        if gid is None:
-            return []
-        row = query_database("SELECT book_id FROM book_genre_map WHERE genre_id = %s",(gid,),fetchone=False)
-
-    #uses book ids to return the books
-    bookids = []
-    for i in row:
-        bookids.append(i['book_id'])
-
-    row2 = []
-    for k in bookids:
-        row2.append(query_database("SELECT * FROM books WHERE id = %s", (k,), fetchone=True))
-
-    return row2
-
 
 #update book_genre_map information
 #updates the mapping by the provided information
@@ -153,14 +126,6 @@ def update_book_genre_map(book_id, **kwargs):
 def remove_genre_mappings(genre_id):
     query_database("DELETE FROM book_genre_map WHERE genre_id = %s", (genre_id,))
 
-
-#delete a genre and its book mappings
-def delete_genre(genre_id):
-    #remove genre mappings first
-    query_database("DELETE FROM book_genre_map WHERE genre_id = %s", (genre_id,))
-    #delete the genre
-    query_database("DELETE FROM genre WHERE id = %s", (genre_id,))
-
 #assigns the passed in genres to a passed in book
 def add_genres_to_book(book_id, *genre_names):
     for name in genre_names:
@@ -170,25 +135,3 @@ def add_genres_to_book(book_id, *genre_names):
 
 #Testing
 
-# books = get_series(get_series_id("The First Law"))
-# bookids = []
-# for book in books:
-#     bookids.append(book['id'])
-
-# for i in bookids:
-#     add_book_genre_map(i, get_genre_id("Novel"))
-
-# bookid = get_book_id("Before they are Hanged")
-# add_book_genre_map(bookid, get_genre_id("Adventure"))
-
-# books = get_books_in_genre("Fiction")
-# for book in books:
-#     print(book)
-
-
-# get_genre_id("Science Fiction")
-# get_genre_id("Humor")
-# get_genre_id("Dystopia")
-# get_genre_id("Comedy")
-
-# add_genres_to_book(get_book_id("Dungeon Crawler Carl"), "Fantasy", "Science Fiction", "Fiction", "Humor", "Comedy", "Dystopia")
