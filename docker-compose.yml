@@ -43,6 +43,7 @@ services:
       # uploaded files (e.g. book covers) are saved on your actual
       # machine and not lost when the container restarts
       - ./static:/app/static
+      - ./templates:/app/templates
 
 volumes:
   # Formally declares the named volume that persists the database
