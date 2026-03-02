@@ -63,11 +63,13 @@ def reading_calendar():
 @app.route('/add_books', methods=['GET', 'POST'])
 @login_required
 def add_books():
+
     if request.method == 'POST':
         # required
         book_title = request.form.get('book_title')
         author_first_name = request.form.get('author_first_name')
         author_last_name = request.form.get('author_last_name')
+        
 
         if not book_title or not author_first_name or not author_last_name:
             flash("Title and author fields are required.")
@@ -77,7 +79,8 @@ def add_books():
         page_count = request.form.get('page_count') or None
         series_name = request.form.get('series_name') or None
         series_order = request.form.get('series_order') or None
-        genre_ids = request.form.getlist('genres')  # Returns a list of selected genre IDs
+        genre_ids = request.form.getlist('genres')
+        new_genre = request.form.get('new_genre') or None
 
         # book cover processing
         cover_file = request.files.get('cover') or None
@@ -103,11 +106,20 @@ def add_books():
         # adding to database
         book_id = master_route.add_book(book_title, author_id, page_count, cover_path, series_id, series_order)
 
+        # genre logic
+        if new_genre:
+            new_genre_id = master_route.add_genre(new_genre)
+            genre_ids.append(new_genre_id)
+
+        # add to book_genre_map
+        for genre_id in genre_ids:
+            master_route.add_genre_mapping(book_id, int(genre_id))
 
         flash("Book added successfully!")
         return redirect(url_for('add_books'))
 
-    return render_template("add_books.html")
+    genres = master_route.get_genres()
+    return render_template("add_books.html", genres=genres)
 
 
 

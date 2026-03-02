@@ -69,11 +69,14 @@ My App
         <div id="genres">
             {% for genre in genres %}
             <div>
-                <input type="checkbox" id="genre_{{ genre.id }}" name="genres" value="{{ genre.id }}">
-                <label for="genre_{{ genre.id }}">{{ genre.name }}</label>
+                <input type="checkbox" id="genre_{{ genre['id'] }}" name="genres" value="{{ genre['id'] }}">
+                <label for="genre_{{ genre['id'] }}">{{ genre['name'] }}</label>
             </div>
             {% endfor %}
         </div>
+
+        <label for="new_genre">Add New Genre</label>
+        <input type="text" id="new_genre" name="new_genre" placeholder="e.g. Mystery">
     </div>
 
     <button type="submit">Add Book</button>

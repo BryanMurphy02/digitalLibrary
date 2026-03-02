@@ -9,7 +9,7 @@ def get_row():
 
 # get all the genres
 def get_all_genres():
-    return query_database("SELECT * FROM genre")
+    return query_database("SELECT * FROM genre", fetchone=False)
 
 #Returns row of genre table matching the inputted id
 def get_genre_by_id(id):
@@ -84,6 +84,8 @@ def delete_genre(genre_id):
 #Book Genre Map
 
 #add book genre connection
+# takes in the book_id and the genre_id to map it to
+# returns new inserted row
 def add_book_genre_map(book_id, genre_id):
     return query_database("INSERT INTO book_genre_map (book_id, genre_id) VALUES (%s, %s) RETURNING *;", (book_id, genre_id), fetchone=True)
 

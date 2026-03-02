@@ -144,5 +144,11 @@ def add_series(series_name, author_id):
     row = series_service.add_series(series_name, author_id)
     return row['id']
 
+def add_genre(name):
+    row = genre_service.add_genre(name)
+    return row['id'] if row else None
 
-# def add_book_to_series(book_id, author_id, series_name, series_order):
+# adding to the book_genre_map
+def add_genre_mapping(book_id, genre_id):
+    row = genre_service.add_book_genre_map(book_id, genre_id)
+    return row if row else None
