@@ -87,7 +87,7 @@ def delete_genre(genre_id):
 # takes in the book_id and the genre_id to map it to
 # returns new inserted row
 def add_book_genre_map(book_id, genre_id):
-    return query_database("INSERT INTO book_genre_map (book_id, genre_id) VALUES (%s, %s) RETURNING *;", (book_id, genre_id), fetchone=True)
+    return query_database("INSERT INTO book_genre_map (book_id, genre_id) VALUES (%s, %s) ON CONFLICT DO NOTHING RETURNING *;", (book_id, genre_id), fetchone=True)
 
 
 #update book_genre_map information
