@@ -44,6 +44,7 @@ services:
       # machine and not lost when the container restarts
       - ./static:/app/static
       - ./templates:/app/templates
+      - .:/app
 
 volumes:
   # Formally declares the named volume that persists the database
