@@ -9,8 +9,7 @@ My App
 
 <div class="book-grid">
     {% for book in trash_table %}
-    <a href="{{ url_for('display_book', book_id=book.book_id) }}" class="book-card-link">
-        <div class="book-card">
+        <div class="book-card trash-card">
             <div class="book-cover">
                 {% if book.book_cover %}
                     <img src="{{ url_for('static', filename=book.book_cover) }}" alt="{{ book.book_title }}">
@@ -23,8 +22,16 @@ My App
                 <h3 class="book-title">{{ book.book_title }}</h3>
                 <p class="book-author">{{ book.author_first_name }} {{ book.author_last_name }}</p>
             </div>
+
+            <div class="trash-actions">
+                <form action="{{ url_for('restore', book_id=book.book_id) }}" method="POST">
+                    <button type="submit" class="trash-btn restore-btn">Restore</button>
+                </form>
+                <form action="{{ url_for('delete', book_id=book.book_id) }}" method="POST">
+                    <button type="submit" class="trash-btn delete-btn">Delete</button>
+                </form>
+            </div>
         </div>
-    </a>
-{% endfor %}
+    {% endfor %}
 </div>
 {% endblock %}

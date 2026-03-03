@@ -162,3 +162,14 @@ def add_genre_mapping(book_id, genre_id):
 def soft_book_delete(book_id):
     deleted_time = datetime.now()
     row = book_service.soft_book_delete(book_id, deleted_time)
+    return row if row else None
+
+# restore a book after soft deletion
+def restore_book(book_id):
+    row = book_service.book_restore(book_id)
+    return row if row else None
+
+# full delete a book from the database
+def hard_book_delete(book_id):
+    row = book_service.hard_delete(book_id)
+    return row if row else None

@@ -49,6 +49,16 @@ def trash():
     trash_table = master_route.get_trash()
     return render_template("trash.html", trash_table=trash_table)
 
+@app.route('/restore/<int:book_id>', methods=['POST'])
+def restore(book_id):
+    master_route.restore_book(book_id)
+    return redirect(url_for('trash'))
+
+@app.route('/delete/<int:book_id>', methods=['POST'])
+def delete(book_id):
+    master_route.hard_book_delete(book_id)
+    return redirect(url_for('trash'))
+
 @app.route('/book/<int:book_id>')
 def display_book(book_id):
     displayed_book = master_route.get_book_display(book_id)

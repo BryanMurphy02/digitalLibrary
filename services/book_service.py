@@ -144,6 +144,22 @@ def soft_book_delete(book_id, time):
         fetchone=True
     )
 
+# restore a book after soft deletion
+def book_restore(book_id):
+    return query_database(
+        "UPDATE books SET deleted_at = %s WHERE id = %s RETURNING *;",
+        (None, book_id),
+        fetchone=True
+    )
+
+# hard delete a book
+def hard_delete(book_id):
+    return query_database(
+        "DELETE FROM books WHERE id = %s",
+        (book_id),
+        fetchone=True
+    )
+
 
 
 
