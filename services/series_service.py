@@ -66,10 +66,6 @@ def get_series_id(name):
     if row:
         return row['id']
     return None
-    
-    # # Series not found, add it
-    # new_series = add_series(name, author_id)
-    # return new_series['id']
 
 
 #get series

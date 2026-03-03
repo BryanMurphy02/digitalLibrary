@@ -22,30 +22,63 @@ p {
 /* ================= Navbar ================= */
 .navbar {
     display: flex;
-    justify-content: space-between; /* left/right spacing */
-    align-items: center;            /* vertically center items */
-    padding: 0.5rem 1rem;
-    background-color: #f5f5f5;
-    border-bottom: 1px solid #ccc;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.75rem 1.5rem;
+    background-color: #ffffff;
+    border-bottom: 2px solid steelblue;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+}
+
+.nav-left {
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
 }
 
 .nav-left a,
 .nav-right a {
-    margin-right: 1rem;
+    padding: 0.4rem 0.75rem;
+    border-radius: 4px;
     text-decoration: none;
-    color: #222;
+    color: #444;
+    font-size: 0.9rem;
+    transition: background 0.15s ease, color 0.15s ease;
+}
+
+.nav-left a:hover,
+.nav-right a:hover {
+    background-color: #e8f0f7;
+    color: steelblue;
+    text-decoration: none;
+}
+
+.nav-right {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
 }
 
 .nav-right span {
-    font-weight: bold;
-    margin-right: 1rem;
+    font-weight: 600;
+    color: #222;
+    font-size: 0.9rem;
+    padding: 0.4rem 0.75rem;
 }
 
-/* Hover effect */
-.nav-left a:hover,
+.nav-right a {
+    background-color: #333;
+    color: white;
+    padding: 0.4rem 0.75rem;
+    border-radius: 4px;
+}
+
 .nav-right a:hover {
-    text-decoration: underline;
-    color: steelblue;
+    background-color: steelblue;
+    color: white;
 }
 
 
@@ -186,10 +219,30 @@ p {
 }
 
 .profile-card {
-    max-width: 800px;
+    max-width: 900px;
     width: 100%;
-    border-radius: 10px;
-    padding: 2rem;
+    background-color: #ffffff;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.1);
+}
+
+.profile-card-header {
+    padding: 40px;
+    background: linear-gradient(135deg, #e8f0f7, #f5f5f5);
+    border-bottom: 2px solid steelblue;
+}
+
+.profile-card-header h2 {
+    font-size: 2rem;
+    color: #222;
+}
+
+.profile-body {
+    padding: 40px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
 }
 
 .profile-header {
@@ -203,8 +256,9 @@ p {
     width: 140px;
     height: 140px;
     border-radius: 50%;
-    overflow: hidden;          /* ensures image stays inside the circle */
-    background: #eee;          /* placeholder color if image fails to load */
+    overflow: hidden;
+    background: #eee;
+    flex-shrink: 0;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -213,36 +267,41 @@ p {
 .profile-picture img {
     width: 100%;
     height: 100%;
-    object-fit: cover;         /* fills the circle while preserving aspect ratio */
-    object-position: center;   /* centers the important part of the image */
-    display: block;            /* removes inline spacing issues */
+    object-fit: cover;
+    object-position: center;
+    display: block;
 }
-
-
 
 .profile-username {
     font-size: 1.8rem;
+    margin-bottom: 0.25rem;
 }
 
 .profile-bio {
     margin-top: 0.5rem;
+    color: #555;
 }
 
 .profile-divider {
-    margin: 2rem 0;
+    margin: 0.5rem 0;
     border-top: 1px solid #e0e0e0;
 }
 
-.profile-detail h3 {
-    margin-bottom: 0.25rem;
-    font-size: 1.1rem;
+.profile-details {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
 }
 
 .profile-detail a {
-    display: inline-block;
-    margin-top: 0.25rem;
     color: #333;
     font-weight: 500;
+    text-decoration: none;
+}
+
+.profile-detail a:hover {
+    color: steelblue;
+    text-decoration: underline;
 }
 
 /* ---------------- Calendar Page ---------------- */
@@ -319,7 +378,6 @@ p {
     background: transparent;
     cursor: default;
 }
-
 
 /* ---------------- Book Detail Page ---------------- */
 .book-detail-container {
@@ -451,4 +509,157 @@ p {
     .book-detail-title {
         font-size: 1.5rem;
     }
+}
+
+/* ---------------- Add Book Page ---------------- */
+.add-book-container {
+    max-width: 900px;
+    margin: 2rem auto;
+    background-color: #ffffff;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.1);
+    margin-bottom: 2rem;
+}
+
+.add-book-header {
+    padding: 40px;
+    background: linear-gradient(135deg, #e8f0f7, #f5f5f5);
+    border-bottom: 2px solid steelblue;
+}
+
+.add-book-header h2 {
+    font-size: 2rem;
+    color: #222;
+}
+
+.add-book-body {
+    padding: 40px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.form-section-label {
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: steelblue;
+    font-weight: bold;
+    margin-bottom: 4px;
+    margin-top: 12px;
+}
+
+.form-row {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    padding: 16px 20px;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    border-left: 4px solid steelblue;
+}
+
+.form-row label {
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: #888;
+}
+
+.form-row input[type="text"],
+.form-row input[type="number"],
+.form-row input[type="file"] {
+    font-size: 1rem;
+    color: #222;
+    background: transparent;
+    border: none;
+    outline: none;
+    width: 100%;
+    padding: 4px 0;
+    border-bottom: 1px solid #ddd;
+}
+
+.form-row input[type="text"]:focus,
+.form-row input[type="number"]:focus {
+    border-bottom: 1px solid steelblue;
+}
+
+.genre-checkboxes {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: 6px;
+}
+
+.genre-checkboxes div {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.genre-checkboxes label {
+    font-size: 0.95rem;
+    color: #444;
+    text-transform: none;
+    letter-spacing: 0;
+}
+
+.add-book-submit {
+    margin-top: 12px;
+    padding: 10px 24px;
+    background-color: #333;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    font-size: 0.9rem;
+    cursor: pointer;
+    transition: background 0.15s ease;
+    align-self: flex-start;
+}
+
+.add-book-submit:hover {
+    background-color: #555;
+}
+
+/* ---------------- Login Page ---------------- */
+.login-container {
+    display: flex;
+    justify-content: center;
+    padding: 2rem 1rem;
+}
+
+.login-card {
+    width: 100%;
+    max-width: 480px;
+    background-color: #ffffff;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.1);
+}
+
+.login-body {
+    padding: 40px;
+    display: flex;
+    flex-direction: column;
+}
+
+.flash-message {
+    background-color: #fdecea;
+    color: #b00020;
+    border-left: 4px solid #b00020;
+    border-radius: 8px;
+    padding: 12px 16px;
+    margin-bottom: 16px;
+    font-size: 0.9rem;
+}
+
+.register-link {
+    color: steelblue;
+    font-weight: 500;
+    text-decoration: none;
+}
+
+.register-link:hover {
+    text-decoration: underline;
 }

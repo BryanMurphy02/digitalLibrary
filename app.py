@@ -39,6 +39,16 @@ def library():
     library_table = master_route.get_library_table()
     return render_template("library.html", library_table=library_table)
 
+@app.route('/delete/<int:book_id>', methods=['POST'])
+def soft_delete(book_id):
+    master_route.soft_book_delete(book_id)
+    return redirect(url_for('library'))
+
+@app.route('/trash')
+def trash():
+    trash_table = master_route.get_trash()
+    return render_template("trash.html", trash_table=trash_table)
+
 @app.route('/book/<int:book_id>')
 def display_book(book_id):
     displayed_book = master_route.get_book_display(book_id)
@@ -63,55 +73,63 @@ def reading_calendar():
 @app.route('/add_books', methods=['GET', 'POST'])
 @login_required
 def add_books():
+
     if request.method == 'POST':
+        # required
         book_title = request.form.get('book_title')
         author_first_name = request.form.get('author_first_name')
         author_last_name = request.form.get('author_last_name')
-        page_count = request.form.get('page_count') or None
-        # series_name = request.form.get('series_name') or None
-        # series_order = request.form.get('series_order') or None
-
-        cover_file = request.files.get('cover') or None
+        
 
         if not book_title or not author_first_name or not author_last_name:
             flash("Title and author fields are required.")
             return redirect(url_for('add_books'))
-        
+
+        # optional
+        page_count = request.form.get('page_count') or None
+        series_name = request.form.get('series_name') or None
+        series_order = request.form.get('series_order') or None
+        genre_ids = request.form.getlist('genres')
+        new_genre = request.form.get('new_genre') or None
+
+        # book cover processing
+        cover_file = request.files.get('cover') or None
         cover_path = None
+
         if cover_file and cover_file.filename:
             filename = secure_filename(cover_file.filename)
             ext = filename.rsplit('.', 1)[1]
-
             filename = f"{uuid.uuid4()}.{ext}"
             cover_path = f"images/books/{filename}"
-
             cover_file.save(os.path.join("static", cover_path))
 
+        # get author_id or add the author
+        author_id = master_route.add_author(author_first_name, author_last_name)
 
-        master_route.add_book(
-            book_title,
-            author_first_name,
-            author_last_name,
-            page_count,
-            cover_path
-        )
-        # Need to come back to this another time, a little too messy at the moment
-        # if(series_name):
-        #     # get the author id
-        #     full_name = author_first_name + " " + author_last_name
-        #     author_id = master_route.get_id("author", full_name)
-        #     book_id = master_route.get_id("book", book_title)
-        #     master_route.add_book_to_series(
-        #         book_id,
-        #         author_id,
-        #         series_name,
-        #         series_order
-        #     )
+        # series logic
+        series_id = None
+        if series_name:
+            series_id = master_route.get_id("series", series_name)
+            if series_id is None:
+                series_id = master_route.add_series(series_name, author_id)
+
+        # adding to database
+        book_id = master_route.add_book(book_title, author_id, page_count, cover_path, series_id, series_order)
+
+        # genre logic
+        if new_genre:
+            new_genre_id = master_route.add_genre(new_genre)
+            genre_ids.append(new_genre_id)
+
+        # add to book_genre_map
+        for genre_id in genre_ids:
+            master_route.add_genre_mapping(book_id, int(genre_id))
 
         flash("Book added successfully!")
         return redirect(url_for('add_books'))
 
-    return render_template("add_books.html")
+    genres = master_route.get_genres()
+    return render_template("add_books.html", genres=genres)
 
 
 

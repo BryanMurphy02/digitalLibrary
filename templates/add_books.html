@@ -1,54 +1,81 @@
 {% extends "layout.html" %}
 
-{% block title %}
-My App
-{% endblock %}
+{% block title %}My App{% endblock %}
 
 {% block content %}
 
-<h2>Add Book</h2>
+<div class="add-book-container">
 
-<form method="POST" action="{{ url_for('add_books') }}" enctype="multipart/form-data">
-
-    <div>
-        <label for="book_title">Book Title</label>
-        <input type="text" id="book_title" name="book_title" required>
+    <div class="add-book-header">
+        <h2>Add Book</h2>
     </div>
 
-    <div>
-        <label for="author_first_name">Author First Name</label>
-        <input type="text" id="author_first_name" name="author_first_name" required>
-    </div>
+    <form class="add-book-body" method="POST" action="{{ url_for('add_books') }}" enctype="multipart/form-data">
 
-    <div>
-        <label for="author_last_name">Author Last Name</label>
-        <input type="text" id="author_last_name" name="author_last_name" required>
-    </div>
+        <div class="form-section-label">Book Details</div>
 
-    <!-- <div>
-        <label for="series_name">Series Name</label>
-        <input type="text" id="series_name" name="series_name">
-    </div>
+        <div class="form-row">
+            <label for="book_title">Book Title</label>
+            <input type="text" id="book_title" name="book_title" required>
+        </div>
 
-    <div>
-        <label for="series_order">Series Order</label>
-        <input type="text" id="series_order" name="series_order">
-    </div> -->
+        <div class="form-section-label">Author</div>
 
-    <div>
-        <label for="page_count">Page Count</label>
-        <input type="number" id="page_count" name="page_count" min="1">
-    </div>
+        <div class="form-row">
+            <label for="author_first_name">Author First Name</label>
+            <input type="text" id="author_first_name" name="author_first_name" required>
+        </div>
 
-    <div>
-        <label for="cover">Cover Image (optional)</label>
-        <input type="file" id="cover" name="cover" accept="image/*">
-    </div>
+        <div class="form-row">
+            <label for="author_last_name">Author Last Name</label>
+            <input type="text" id="author_last_name" name="author_last_name" required>
+        </div>
 
-    <button type="submit">Add Book</button>
+        <div class="form-row">
+            <label for="page_count">Page Count</label>
+            <input type="number" id="page_count" name="page_count" min="1">
+        </div>
 
-</form>
+        <div class="form-row">
+            <label for="cover">Cover Image (optional)</label>
+            <input type="file" id="cover" name="cover" accept="image/*">
+        </div>
 
+        <div class="form-section-label">Series (optional)</div>
 
+        <div class="form-row">
+            <label for="series_name">Series Name</label>
+            <input type="text" id="series_name" name="series_name">
+        </div>
+
+        <div class="form-row">
+            <label for="series_order">Series Order</label>
+            <input type="number" id="series_order" name="series_order" min="1">
+        </div>
+
+        <div class="form-section-label">Genres</div>
+
+        <div class="form-row">
+            <label>Select Genres</label>
+            <div class="genre-checkboxes" id="genres">
+                {% for genre in genres %}
+                <div>
+                    <input type="checkbox" id="genre_{{ genre['id'] }}" name="genres" value="{{ genre['id'] }}">
+                    <label for="genre_{{ genre['id'] }}">{{ genre['name'] }}</label>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+
+        <div class="form-row">
+            <label for="new_genre">Add New Genre</label>
+            <input type="text" id="new_genre" name="new_genre" placeholder="e.g. Mystery">
+        </div>
+
+        <button type="submit" class="add-book-submit">Add Book</button>
+
+    </form>
+
+</div>
 
 {% endblock %}

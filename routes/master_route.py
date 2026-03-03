@@ -1,6 +1,7 @@
 
 from services import book_service, author_service, genre_service, reading_calendar_service, series_service, user_service, db_views
 from psycopg2.extras import RealDictRow
+from datetime import datetime
 
 
 def to_dict(data):
@@ -46,6 +47,10 @@ def get_book_display(book_id):
 # return books from added to a user's profile
 def get_user_books(user_id):
     return to_dict(user_service.get_user_books(user_id))
+
+# return all the trashed books
+def get_trash():
+    return to_dict(db_views.get_all_trash())
 
 
 #Id get functions
@@ -130,12 +135,30 @@ def get_dict_value(data, column: str):
     return data[0].get(column)
 
 
+# adding authors to the database from the front end
+def add_author(first_name, last_name):
+    return author_service.add_author(first_name, last_name)
 
 # adding books to the database from the front end
-def add_book(book_title, author_first_name, author_last_name, page_count=None, cover_path=None):
-    book_service.add_book(book_title, author_first_name, author_last_name, cover_path, page_count)
+def add_book(book_title, author_id, page_count=None, cover_path=None, series_id=None, series_order=None):
+    row = book_service.add_book(book_title, author_id, cover_path, page_count, series_id, series_order)
+    return row['id'] if row else None
 
+# adding a series
+def add_series(series_name, author_id):
+    row = series_service.add_series(series_name, author_id)
+    return row['id']
 
+def add_genre(name):
+    row = genre_service.add_genre(name)
+    return row['id'] if row else None
 
+# adding to the book_genre_map
+def add_genre_mapping(book_id, genre_id):
+    row = genre_service.add_book_genre_map(book_id, genre_id)
+    return row if row else None
 
-# def add_book_to_series(book_id, author_id, series_name, series_order):
+# grab the time and soft delete a book
+def soft_book_delete(book_id):
+    deleted_time = datetime.now()
+    row = book_service.soft_book_delete(book_id, deleted_time)
