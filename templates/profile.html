@@ -1,15 +1,18 @@
 {% extends "layout.html" %}
 
-{% block title %}
-Profile
-{% endblock %}
+{% block title %}Profile{% endblock %}
 
 {% block content %}
-<h1 class="page-title">Profile</h1>
 
-<div class="profile-container">
-    <div class="profile-card">
+<div class="add-book-container">
 
+    <div class="add-book-header">
+        <h2>Profile</h2>
+    </div>
+
+    <div class="profile-body">
+
+        <!-- Profile Header -->
         <div class="profile-header">
             <div class="profile-picture">
                 {% if user_data.profile_picture %}
@@ -19,53 +22,50 @@ Profile
                 {% endif %}
             </div>
 
-
-
             <div class="profile-main-info">
-                <h2 class="profile-username">{{current_user.username}}</h2>
-                <p class="profile-bio">
-                    {{ user_data.bio }}
-                </p>
+                <h2 class="profile-username">{{ current_user.username }}</h2>
+                <p class="profile-bio">{{ user_data.bio }}</p>
             </div>
         </div>
 
         <div class="profile-divider"></div>
 
+        <!-- Profile Details -->
         <div class="profile-details">
-                <div class="profile-detail">
-                    <h3>Favorite Book</h3>
-                    <p> {{ user_data.favorite_book }}</p>
-                </div>
+            <div class="form-section-label">Favorite Book</div>
+            <div class="form-row">
+                <p class="detail-value">{{ user_data.favorite_book }}</p>
+            </div>
 
-                <div class="profile-detail">
-                    <h3>Reading Activity</h3>
-                    <p>
-                        <a href="{{ url_for('reading_calendar') }}">
-                            View full reading calendar →
-                        </a>
-                    </p>
-                </div>
+            <div class="form-section-label">Reading Activity</div>
+            <div class="form-row">
+                <a href="{{ url_for('reading_calendar') }}" class="detail-value">View full reading calendar →</a>
+            </div>
         </div>
 
-        <div class="book-grid">
-            {% for book in user_books %}
-                    <div class="book-card">
-                        <div class="book-cover">
-                            {% if book.book_cover %}
-                                <img src="{{ url_for('static', filename=book.book_cover) }}" alt="{{ book.book_title }}">
-                            {% else %}
-                                <div class="no-cover">No Cover</div>
-                            {% endif %}
-                        </div>
+        <div class="profile-divider"></div>
 
-                        <div class="book-info">
-                            <h3 class="book-title">{{ book.book_title }}</h3>
-                            <p class="book-author">{{ book.author_first_name }} {{ book.author_last_name }}</p>
-                        </div>
+        <!-- Book Grid -->
+        <div class="form-section-label" style="padding: 0 40px;">My Books</div>
+        <div class="book-grid" style="padding: 1rem 40px 40px 40px;">
+            {% for book in user_books %}
+                <div class="book-card">
+                    <div class="book-cover">
+                        {% if book.book_cover %}
+                            <img src="{{ url_for('static', filename=book.book_cover) }}" alt="{{ book.book_title }}">
+                        {% else %}
+                            <div class="no-cover">No Cover</div>
+                        {% endif %}
                     </div>
+                    <div class="book-info">
+                        <h3 class="book-title">{{ book.book_title }}</h3>
+                        <p class="book-author">{{ book.author_first_name }} {{ book.author_last_name }}</p>
+                    </div>
+                </div>
             {% endfor %}
         </div>
 
     </div>
 </div>
+
 {% endblock %}

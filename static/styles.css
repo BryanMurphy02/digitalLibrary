@@ -186,10 +186,30 @@ p {
 }
 
 .profile-card {
-    max-width: 800px;
+    max-width: 900px;
     width: 100%;
-    border-radius: 10px;
-    padding: 2rem;
+    background-color: #ffffff;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.1);
+}
+
+.profile-card-header {
+    padding: 40px;
+    background: linear-gradient(135deg, #e8f0f7, #f5f5f5);
+    border-bottom: 2px solid steelblue;
+}
+
+.profile-card-header h2 {
+    font-size: 2rem;
+    color: #222;
+}
+
+.profile-body {
+    padding: 40px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
 }
 
 .profile-header {
@@ -203,8 +223,9 @@ p {
     width: 140px;
     height: 140px;
     border-radius: 50%;
-    overflow: hidden;          /* ensures image stays inside the circle */
-    background: #eee;          /* placeholder color if image fails to load */
+    overflow: hidden;
+    background: #eee;
+    flex-shrink: 0;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -213,36 +234,41 @@ p {
 .profile-picture img {
     width: 100%;
     height: 100%;
-    object-fit: cover;         /* fills the circle while preserving aspect ratio */
-    object-position: center;   /* centers the important part of the image */
-    display: block;            /* removes inline spacing issues */
+    object-fit: cover;
+    object-position: center;
+    display: block;
 }
-
-
 
 .profile-username {
     font-size: 1.8rem;
+    margin-bottom: 0.25rem;
 }
 
 .profile-bio {
     margin-top: 0.5rem;
+    color: #555;
 }
 
 .profile-divider {
-    margin: 2rem 0;
+    margin: 0.5rem 0;
     border-top: 1px solid #e0e0e0;
 }
 
-.profile-detail h3 {
-    margin-bottom: 0.25rem;
-    font-size: 1.1rem;
+.profile-details {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
 }
 
 .profile-detail a {
-    display: inline-block;
-    margin-top: 0.25rem;
     color: #333;
     font-weight: 500;
+    text-decoration: none;
+}
+
+.profile-detail a:hover {
+    color: steelblue;
+    text-decoration: underline;
 }
 
 /* ---------------- Calendar Page ---------------- */
