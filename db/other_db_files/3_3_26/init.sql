@@ -5,7 +5,7 @@
 -- Dumped from database version 16.12 (Debian 16.12-1.pgdg13+1)
 -- Dumped by pg_dump version 17.5
 
--- Started on 2026-03-03 12:34:12
+-- Started on 2026-03-02 20:58:26
 
 SET statement_timeout = 0;
 SET lock_timeout = 0;
@@ -329,20 +329,21 @@ ALTER SEQUENCE public.series_id_seq OWNED BY public.series.id;
 
 
 --
--- TOC entry 234 (class 1259 OID 16568)
+-- TOC entry 234 (class 1259 OID 16564)
 -- Name: trash; Type: VIEW; Schema: public; Owner: postgres
 --
 
 CREATE VIEW public.trash AS
- SELECT books.id AS book_id,
-    books.title AS book_title,
-    books.cover AS book_cover,
-    author.first_name AS author_first_name,
-    author.last_name AS author_last_name,
-    books.deleted_at
-   FROM (public.books
-     JOIN public.author ON ((books.author_id = author.id)))
-  WHERE (books.deleted_at IS NOT NULL);
+ SELECT id,
+    title,
+    cover,
+    page_count,
+    series_id,
+    author_id,
+    series_order,
+    deleted_at
+   FROM public.books
+  WHERE (deleted_at IS NOT NULL);
 
 
 ALTER VIEW public.trash OWNER TO postgres;
@@ -518,18 +519,18 @@ ALTER TABLE ONLY public.users ALTER COLUMN id SET DEFAULT nextval('public.users_
 -- Data for Name: author; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
-INSERT INTO public.author VALUES (1, 'Brandon', 'Sanderson');
-INSERT INTO public.author VALUES (2, 'Simon', 'Jimenez');
-INSERT INTO public.author VALUES (3, 'J.A.J.', 'Minton');
-INSERT INTO public.author VALUES (4, 'Christopher', 'Buehlman');
-INSERT INTO public.author VALUES (5, 'Joe', 'Abercrombie');
-INSERT INTO public.author VALUES (6, 'Terry', 'Pratchett');
-INSERT INTO public.author VALUES (11, 'Sarah J.', 'Maas');
-INSERT INTO public.author VALUES (12, 'Matt', 'Dinniman');
-INSERT INTO public.author VALUES (14, 'Robin', 'Hobb');
-INSERT INTO public.author VALUES (15, 'Dan', 'Simmons');
-INSERT INTO public.author VALUES (16, 'Andy', 'Weir');
-INSERT INTO public.author VALUES (17, 'Ken', 'Liu');
+INSERT INTO public.author (id, first_name, last_name) VALUES (1, 'Brandon', 'Sanderson');
+INSERT INTO public.author (id, first_name, last_name) VALUES (2, 'Simon', 'Jimenez');
+INSERT INTO public.author (id, first_name, last_name) VALUES (3, 'J.A.J.', 'Minton');
+INSERT INTO public.author (id, first_name, last_name) VALUES (4, 'Christopher', 'Buehlman');
+INSERT INTO public.author (id, first_name, last_name) VALUES (5, 'Joe', 'Abercrombie');
+INSERT INTO public.author (id, first_name, last_name) VALUES (6, 'Terry', 'Pratchett');
+INSERT INTO public.author (id, first_name, last_name) VALUES (11, 'Sarah J.', 'Maas');
+INSERT INTO public.author (id, first_name, last_name) VALUES (12, 'Matt', 'Dinniman');
+INSERT INTO public.author (id, first_name, last_name) VALUES (14, 'Robin', 'Hobb');
+INSERT INTO public.author (id, first_name, last_name) VALUES (15, 'Dan', 'Simmons');
+INSERT INTO public.author (id, first_name, last_name) VALUES (16, 'Andy', 'Weir');
+INSERT INTO public.author (id, first_name, last_name) VALUES (17, 'Ken', 'Liu');
 
 
 --
@@ -538,81 +539,81 @@ INSERT INTO public.author VALUES (17, 'Ken', 'Liu');
 -- Data for Name: book_genre_map; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
-INSERT INTO public.book_genre_map VALUES (1, 5);
-INSERT INTO public.book_genre_map VALUES (1, 6);
-INSERT INTO public.book_genre_map VALUES (1, 7);
-INSERT INTO public.book_genre_map VALUES (2, 5);
-INSERT INTO public.book_genre_map VALUES (2, 6);
-INSERT INTO public.book_genre_map VALUES (2, 7);
-INSERT INTO public.book_genre_map VALUES (10, 5);
-INSERT INTO public.book_genre_map VALUES (11, 5);
-INSERT INTO public.book_genre_map VALUES (12, 5);
-INSERT INTO public.book_genre_map VALUES (13, 5);
-INSERT INTO public.book_genre_map VALUES (14, 5);
-INSERT INTO public.book_genre_map VALUES (15, 5);
-INSERT INTO public.book_genre_map VALUES (16, 5);
-INSERT INTO public.book_genre_map VALUES (17, 5);
-INSERT INTO public.book_genre_map VALUES (10, 6);
-INSERT INTO public.book_genre_map VALUES (11, 6);
-INSERT INTO public.book_genre_map VALUES (12, 6);
-INSERT INTO public.book_genre_map VALUES (13, 6);
-INSERT INTO public.book_genre_map VALUES (14, 6);
-INSERT INTO public.book_genre_map VALUES (15, 6);
-INSERT INTO public.book_genre_map VALUES (16, 6);
-INSERT INTO public.book_genre_map VALUES (17, 6);
-INSERT INTO public.book_genre_map VALUES (10, 7);
-INSERT INTO public.book_genre_map VALUES (11, 7);
-INSERT INTO public.book_genre_map VALUES (12, 7);
-INSERT INTO public.book_genre_map VALUES (13, 7);
-INSERT INTO public.book_genre_map VALUES (14, 7);
-INSERT INTO public.book_genre_map VALUES (15, 7);
-INSERT INTO public.book_genre_map VALUES (16, 7);
-INSERT INTO public.book_genre_map VALUES (17, 7);
-INSERT INTO public.book_genre_map VALUES (6, 7);
-INSERT INTO public.book_genre_map VALUES (7, 7);
-INSERT INTO public.book_genre_map VALUES (8, 7);
-INSERT INTO public.book_genre_map VALUES (6, 6);
-INSERT INTO public.book_genre_map VALUES (7, 6);
-INSERT INTO public.book_genre_map VALUES (8, 6);
-INSERT INTO public.book_genre_map VALUES (6, 5);
-INSERT INTO public.book_genre_map VALUES (7, 5);
-INSERT INTO public.book_genre_map VALUES (8, 5);
-INSERT INTO public.book_genre_map VALUES (6, 8);
-INSERT INTO public.book_genre_map VALUES (7, 8);
-INSERT INTO public.book_genre_map VALUES (8, 8);
-INSERT INTO public.book_genre_map VALUES (7, 10);
-INSERT INTO public.book_genre_map VALUES (18, 6);
-INSERT INTO public.book_genre_map VALUES (18, 12);
-INSERT INTO public.book_genre_map VALUES (18, 5);
-INSERT INTO public.book_genre_map VALUES (18, 13);
-INSERT INTO public.book_genre_map VALUES (18, 15);
-INSERT INTO public.book_genre_map VALUES (18, 14);
-INSERT INTO public.book_genre_map VALUES (5, 16);
-INSERT INTO public.book_genre_map VALUES (5, 6);
-INSERT INTO public.book_genre_map VALUES (5, 17);
-INSERT INTO public.book_genre_map VALUES (5, 5);
-INSERT INTO public.book_genre_map VALUES (26, 5);
-INSERT INTO public.book_genre_map VALUES (26, 6);
-INSERT INTO public.book_genre_map VALUES (26, 8);
-INSERT INTO public.book_genre_map VALUES (26, 7);
-INSERT INTO public.book_genre_map VALUES (28, 5);
-INSERT INTO public.book_genre_map VALUES (28, 12);
-INSERT INTO public.book_genre_map VALUES (29, 5);
-INSERT INTO public.book_genre_map VALUES (29, 6);
-INSERT INTO public.book_genre_map VALUES (29, 7);
-INSERT INTO public.book_genre_map VALUES (29, 19);
-INSERT INTO public.book_genre_map VALUES (27, 5);
-INSERT INTO public.book_genre_map VALUES (27, 12);
-INSERT INTO public.book_genre_map VALUES (27, 6);
-INSERT INTO public.book_genre_map VALUES (27, 16);
-INSERT INTO public.book_genre_map VALUES (27, 20);
-INSERT INTO public.book_genre_map VALUES (30, 5);
-INSERT INTO public.book_genre_map VALUES (30, 6);
-INSERT INTO public.book_genre_map VALUES (30, 13);
-INSERT INTO public.book_genre_map VALUES (30, 15);
-INSERT INTO public.book_genre_map VALUES (31, 5);
-INSERT INTO public.book_genre_map VALUES (31, 6);
-INSERT INTO public.book_genre_map VALUES (31, 7);
+INSERT INTO public.book_genre_map (book_id, genre_id) VALUES (1, 5);
+INSERT INTO public.book_genre_map (book_id, genre_id) VALUES (1, 6);
+INSERT INTO public.book_genre_map (book_id, genre_id) VALUES (1, 7);
+INSERT INTO public.book_genre_map (book_id, genre_id) VALUES (2, 5);
+INSERT INTO public.book_genre_map (book_id, genre_id) VALUES (2, 6);
+INSERT INTO public.book_genre_map (book_id, genre_id) VALUES (2, 7);
+INSERT INTO public.book_genre_map (book_id, genre_id) VALUES (10, 5);
+INSERT INTO public.book_genre_map (book_id, genre_id) VALUES (11, 5);
+INSERT INTO public.book_genre_map (book_id, genre_id) VALUES (12, 5);
+INSERT INTO public.book_genre_map (book_id, genre_id) VALUES (13, 5);
+INSERT INTO public.book_genre_map (book_id, genre_id) VALUES (14, 5);
+INSERT INTO public.book_genre_map (book_id, genre_id) VALUES (15, 5);
+INSERT INTO public.book_genre_map (book_id, genre_id) VALUES (16, 5);
+INSERT INTO public.book_genre_map (book_id, genre_id) VALUES (17, 5);
+INSERT INTO public.book_genre_map (book_id, genre_id) VALUES (10, 6);
+INSERT INTO public.book_genre_map (book_id, genre_id) VALUES (11, 6);
+INSERT INTO public.book_genre_map (book_id, genre_id) VALUES (12, 6);
+INSERT INTO public.book_genre_map (book_id, genre_id) VALUES (13, 6);
+INSERT INTO public.book_genre_map (book_id, genre_id) VALUES (14, 6);
+INSERT INTO public.book_genre_map (book_id, genre_id) VALUES (15, 6);
+INSERT INTO public.book_genre_map (book_id, genre_id) VALUES (16, 6);
+INSERT INTO public.book_genre_map (book_id, genre_id) VALUES (17, 6);
+INSERT INTO public.book_genre_map (book_id, genre_id) VALUES (10, 7);
+INSERT INTO public.book_genre_map (book_id, genre_id) VALUES (11, 7);
+INSERT INTO public.book_genre_map (book_id, genre_id) VALUES (12, 7);
+INSERT INTO public.book_genre_map (book_id, genre_id) VALUES (13, 7);
+INSERT INTO public.book_genre_map (book_id, genre_id) VALUES (14, 7);
+INSERT INTO public.book_genre_map (book_id, genre_id) VALUES (15, 7);
+INSERT INTO public.book_genre_map (book_id, genre_id) VALUES (16, 7);
+INSERT INTO public.book_genre_map (book_id, genre_id) VALUES (17, 7);
+INSERT INTO public.book_genre_map (book_id, genre_id) VALUES (6, 7);
+INSERT INTO public.book_genre_map (book_id, genre_id) VALUES (7, 7);
+INSERT INTO public.book_genre_map (book_id, genre_id) VALUES (8, 7);
+INSERT INTO public.book_genre_map (book_id, genre_id) VALUES (6, 6);
+INSERT INTO public.book_genre_map (book_id, genre_id) VALUES (7, 6);
+INSERT INTO public.book_genre_map (book_id, genre_id) VALUES (8, 6);
+INSERT INTO public.book_genre_map (book_id, genre_id) VALUES (6, 5);
+INSERT INTO public.book_genre_map (book_id, genre_id) VALUES (7, 5);
+INSERT INTO public.book_genre_map (book_id, genre_id) VALUES (8, 5);
+INSERT INTO public.book_genre_map (book_id, genre_id) VALUES (6, 8);
+INSERT INTO public.book_genre_map (book_id, genre_id) VALUES (7, 8);
+INSERT INTO public.book_genre_map (book_id, genre_id) VALUES (8, 8);
+INSERT INTO public.book_genre_map (book_id, genre_id) VALUES (7, 10);
+INSERT INTO public.book_genre_map (book_id, genre_id) VALUES (18, 6);
+INSERT INTO public.book_genre_map (book_id, genre_id) VALUES (18, 12);
+INSERT INTO public.book_genre_map (book_id, genre_id) VALUES (18, 5);
+INSERT INTO public.book_genre_map (book_id, genre_id) VALUES (18, 13);
+INSERT INTO public.book_genre_map (book_id, genre_id) VALUES (18, 15);
+INSERT INTO public.book_genre_map (book_id, genre_id) VALUES (18, 14);
+INSERT INTO public.book_genre_map (book_id, genre_id) VALUES (5, 16);
+INSERT INTO public.book_genre_map (book_id, genre_id) VALUES (5, 6);
+INSERT INTO public.book_genre_map (book_id, genre_id) VALUES (5, 17);
+INSERT INTO public.book_genre_map (book_id, genre_id) VALUES (5, 5);
+INSERT INTO public.book_genre_map (book_id, genre_id) VALUES (26, 5);
+INSERT INTO public.book_genre_map (book_id, genre_id) VALUES (26, 6);
+INSERT INTO public.book_genre_map (book_id, genre_id) VALUES (26, 8);
+INSERT INTO public.book_genre_map (book_id, genre_id) VALUES (26, 7);
+INSERT INTO public.book_genre_map (book_id, genre_id) VALUES (28, 5);
+INSERT INTO public.book_genre_map (book_id, genre_id) VALUES (28, 12);
+INSERT INTO public.book_genre_map (book_id, genre_id) VALUES (29, 5);
+INSERT INTO public.book_genre_map (book_id, genre_id) VALUES (29, 6);
+INSERT INTO public.book_genre_map (book_id, genre_id) VALUES (29, 7);
+INSERT INTO public.book_genre_map (book_id, genre_id) VALUES (29, 19);
+INSERT INTO public.book_genre_map (book_id, genre_id) VALUES (27, 5);
+INSERT INTO public.book_genre_map (book_id, genre_id) VALUES (27, 12);
+INSERT INTO public.book_genre_map (book_id, genre_id) VALUES (27, 6);
+INSERT INTO public.book_genre_map (book_id, genre_id) VALUES (27, 16);
+INSERT INTO public.book_genre_map (book_id, genre_id) VALUES (27, 20);
+INSERT INTO public.book_genre_map (book_id, genre_id) VALUES (30, 5);
+INSERT INTO public.book_genre_map (book_id, genre_id) VALUES (30, 6);
+INSERT INTO public.book_genre_map (book_id, genre_id) VALUES (30, 13);
+INSERT INTO public.book_genre_map (book_id, genre_id) VALUES (30, 15);
+INSERT INTO public.book_genre_map (book_id, genre_id) VALUES (31, 5);
+INSERT INTO public.book_genre_map (book_id, genre_id) VALUES (31, 6);
+INSERT INTO public.book_genre_map (book_id, genre_id) VALUES (31, 7);
 
 
 --
@@ -621,35 +622,35 @@ INSERT INTO public.book_genre_map VALUES (31, 7);
 -- Data for Name: books; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
-INSERT INTO public.books VALUES (1, 'The Way of Kings', 'images/books/the_way_of_kings.jpg', 1124, 1, 1, 1, NULL);
-INSERT INTO public.books VALUES (2, 'Words of Radiance', 'images/books/words_of_radiance.jpg', 1124, 1, 1, 2, NULL);
-INSERT INTO public.books VALUES (3, 'The Spear Cuts Through Water', 'images/books/the_spear_cuts_through_water.jpg', 518, NULL, 2, NULL, NULL);
-INSERT INTO public.books VALUES (4, 'Discovery', 'images/books/discovery.jpg', 448, NULL, 3, NULL, NULL);
-INSERT INTO public.books VALUES (5, 'Between Two Fires', 'images/books/between_two_fires.jpg', 434, NULL, 4, NULL, NULL);
-INSERT INTO public.books VALUES (12, 'Crown of Midnight', 'images/books/crown_of_midnight.jpg', 446, 2, 11, 3, NULL);
-INSERT INTO public.books VALUES (17, 'Heir of Fire', 'images/books/heir_of_fire.jpg', 576, 2, 11, 4, NULL);
-INSERT INTO public.books VALUES (13, 'Queen of Shadows', 'images/books/queen_of_shadows.jpg', 693, 2, 11, 5, NULL);
-INSERT INTO public.books VALUES (14, 'Empire of Storms', 'images/books/empire_of_storms.jpg', 693, 2, 11, 6, NULL);
-INSERT INTO public.books VALUES (15, 'Tower of Dawn', 'images/books/tower_of_dawn.jpg', 663, 2, 11, 7, NULL);
-INSERT INTO public.books VALUES (16, 'Kingdom of Ash', 'images/books/kingdom_of_ash.jpg', 984, 2, 11, 8, NULL);
-INSERT INTO public.books VALUES (6, 'The Blade Itself', 'images/books/the_blade_itself.jpg', 501, 3, 5, 1, NULL);
-INSERT INTO public.books VALUES (7, 'Before they are Hanged', 'images/books/before_they_are_hanged.jpg', 514, 3, 5, 2, NULL);
-INSERT INTO public.books VALUES (8, 'Last Argument of Kings', 'images/books/last_argument_of_kings.jpg', 603, 3, 5, 3, NULL);
-INSERT INTO public.books VALUES (18, 'Dungeon Crawler Carl', 'images/books/dungeon_crawler_carl.jpg', 446, 6, 12, 1, NULL);
-INSERT INTO public.books VALUES (19, 'Carl''s Doomsday Scenario', 'images/books/carl''s_doomsday_scenario.jpg', 364, 6, 12, 2, NULL);
-INSERT INTO public.books VALUES (20, 'The Dungeon Anarchist''s Cookbook', 'images/books/the_dungeon_anarchist''s_cookbook.jpg', 534, 6, 12, 3, NULL);
-INSERT INTO public.books VALUES (22, 'The Butcher''s Masquerade', 'images/books/the_butcher''s_masquerade.jpg', 732, 6, 12, 5, NULL);
-INSERT INTO public.books VALUES (23, 'The Eye of the Bedlam Bride', 'images/books/the_eye_of_the_bedlam_bride.jpg', 694, 6, 12, 6, NULL);
-INSERT INTO public.books VALUES (24, 'This Inevitable Ruin', 'images/books/this_inevitable_ruin.jpg', 724, 6, 12, 7, NULL);
-INSERT INTO public.books VALUES (26, 'Royal Assassin', 'images/books/4575783a-6c69-4722-8aff-f78aeb074d57.jpg', 679, 8, 14, 2, NULL);
-INSERT INTO public.books VALUES (27, 'Hyperion', 'images/books/d7cd71d8-20bd-4d3b-b92e-e10bfcc6e7d6.jpg', 500, NULL, 15, NULL, NULL);
-INSERT INTO public.books VALUES (28, 'Project Hail Mary', 'images/books/ac5aa4d4-4d06-4ccc-9097-40478e2c7c77.jpg', 682, NULL, 16, NULL, NULL);
-INSERT INTO public.books VALUES (31, 'The Grace of Kings', 'images/books/b9bf4124-c490-4e97-b93c-2bc57a0eced0.jpeg', 623, 10, 17, 1, NULL);
-INSERT INTO public.books VALUES (11, 'Throne of Glass', 'images/books/throne_of_glass.jpg', 409, 2, 11, 2, '2026-03-03 14:59:36.981632');
-INSERT INTO public.books VALUES (29, 'Tress of the Emerald Sea', 'images/books/d253acd6-cd4f-4ad3-ac7c-dd83a47400bd.jpg', 562, NULL, 1, NULL, NULL);
-INSERT INTO public.books VALUES (10, 'The Assassin’s Blade', 'images/books/the_assassin''s_blade.jpg', 448, 2, 11, 1, NULL);
-INSERT INTO public.books VALUES (21, 'The Gate of the Feral Gods', 'images/books/the_gate_of_the_feral_gods.jpg', 586, 6, 12, 4, NULL);
-INSERT INTO public.books VALUES (30, 'Guards! Guards!', 'images/books/1737a641-29d3-4962-93ee-667257c07db1.jpg', 471, 9, 6, 8, NULL);
+INSERT INTO public.books (id, title, cover, page_count, series_id, author_id, series_order, deleted_at) VALUES (1, 'The Way of Kings', 'images/books/the_way_of_kings.jpg', 1124, 1, 1, 1, NULL);
+INSERT INTO public.books (id, title, cover, page_count, series_id, author_id, series_order, deleted_at) VALUES (2, 'Words of Radiance', 'images/books/words_of_radiance.jpg', 1124, 1, 1, 2, NULL);
+INSERT INTO public.books (id, title, cover, page_count, series_id, author_id, series_order, deleted_at) VALUES (3, 'The Spear Cuts Through Water', 'images/books/the_spear_cuts_through_water.jpg', 518, NULL, 2, NULL, NULL);
+INSERT INTO public.books (id, title, cover, page_count, series_id, author_id, series_order, deleted_at) VALUES (4, 'Discovery', 'images/books/discovery.jpg', 448, NULL, 3, NULL, NULL);
+INSERT INTO public.books (id, title, cover, page_count, series_id, author_id, series_order, deleted_at) VALUES (5, 'Between Two Fires', 'images/books/between_two_fires.jpg', 434, NULL, 4, NULL, NULL);
+INSERT INTO public.books (id, title, cover, page_count, series_id, author_id, series_order, deleted_at) VALUES (10, 'The Assassin’s Blade', 'images/books/the_assassin''s_blade.jpg', 448, 2, 11, 1, NULL);
+INSERT INTO public.books (id, title, cover, page_count, series_id, author_id, series_order, deleted_at) VALUES (11, 'Throne of Glass', 'images/books/throne_of_glass.jpg', 409, 2, 11, 2, NULL);
+INSERT INTO public.books (id, title, cover, page_count, series_id, author_id, series_order, deleted_at) VALUES (12, 'Crown of Midnight', 'images/books/crown_of_midnight.jpg', 446, 2, 11, 3, NULL);
+INSERT INTO public.books (id, title, cover, page_count, series_id, author_id, series_order, deleted_at) VALUES (17, 'Heir of Fire', 'images/books/heir_of_fire.jpg', 576, 2, 11, 4, NULL);
+INSERT INTO public.books (id, title, cover, page_count, series_id, author_id, series_order, deleted_at) VALUES (13, 'Queen of Shadows', 'images/books/queen_of_shadows.jpg', 693, 2, 11, 5, NULL);
+INSERT INTO public.books (id, title, cover, page_count, series_id, author_id, series_order, deleted_at) VALUES (14, 'Empire of Storms', 'images/books/empire_of_storms.jpg', 693, 2, 11, 6, NULL);
+INSERT INTO public.books (id, title, cover, page_count, series_id, author_id, series_order, deleted_at) VALUES (15, 'Tower of Dawn', 'images/books/tower_of_dawn.jpg', 663, 2, 11, 7, NULL);
+INSERT INTO public.books (id, title, cover, page_count, series_id, author_id, series_order, deleted_at) VALUES (16, 'Kingdom of Ash', 'images/books/kingdom_of_ash.jpg', 984, 2, 11, 8, NULL);
+INSERT INTO public.books (id, title, cover, page_count, series_id, author_id, series_order, deleted_at) VALUES (6, 'The Blade Itself', 'images/books/the_blade_itself.jpg', 501, 3, 5, 1, NULL);
+INSERT INTO public.books (id, title, cover, page_count, series_id, author_id, series_order, deleted_at) VALUES (7, 'Before they are Hanged', 'images/books/before_they_are_hanged.jpg', 514, 3, 5, 2, NULL);
+INSERT INTO public.books (id, title, cover, page_count, series_id, author_id, series_order, deleted_at) VALUES (8, 'Last Argument of Kings', 'images/books/last_argument_of_kings.jpg', 603, 3, 5, 3, NULL);
+INSERT INTO public.books (id, title, cover, page_count, series_id, author_id, series_order, deleted_at) VALUES (18, 'Dungeon Crawler Carl', 'images/books/dungeon_crawler_carl.jpg', 446, 6, 12, 1, NULL);
+INSERT INTO public.books (id, title, cover, page_count, series_id, author_id, series_order, deleted_at) VALUES (19, 'Carl''s Doomsday Scenario', 'images/books/carl''s_doomsday_scenario.jpg', 364, 6, 12, 2, NULL);
+INSERT INTO public.books (id, title, cover, page_count, series_id, author_id, series_order, deleted_at) VALUES (20, 'The Dungeon Anarchist''s Cookbook', 'images/books/the_dungeon_anarchist''s_cookbook.jpg', 534, 6, 12, 3, NULL);
+INSERT INTO public.books (id, title, cover, page_count, series_id, author_id, series_order, deleted_at) VALUES (21, 'The Gate of the Feral Gods', 'images/books/the_gate_of_the_feral_gods.jpg', 586, 6, 12, 4, NULL);
+INSERT INTO public.books (id, title, cover, page_count, series_id, author_id, series_order, deleted_at) VALUES (22, 'The Butcher''s Masquerade', 'images/books/the_butcher''s_masquerade.jpg', 732, 6, 12, 5, NULL);
+INSERT INTO public.books (id, title, cover, page_count, series_id, author_id, series_order, deleted_at) VALUES (23, 'The Eye of the Bedlam Bride', 'images/books/the_eye_of_the_bedlam_bride.jpg', 694, 6, 12, 6, NULL);
+INSERT INTO public.books (id, title, cover, page_count, series_id, author_id, series_order, deleted_at) VALUES (24, 'This Inevitable Ruin', 'images/books/this_inevitable_ruin.jpg', 724, 6, 12, 7, NULL);
+INSERT INTO public.books (id, title, cover, page_count, series_id, author_id, series_order, deleted_at) VALUES (26, 'Royal Assassin', 'images/books/4575783a-6c69-4722-8aff-f78aeb074d57.jpg', 679, 8, 14, 2, NULL);
+INSERT INTO public.books (id, title, cover, page_count, series_id, author_id, series_order, deleted_at) VALUES (27, 'Hyperion', 'images/books/d7cd71d8-20bd-4d3b-b92e-e10bfcc6e7d6.jpg', 500, NULL, 15, NULL, NULL);
+INSERT INTO public.books (id, title, cover, page_count, series_id, author_id, series_order, deleted_at) VALUES (28, 'Project Hail Mary', 'images/books/ac5aa4d4-4d06-4ccc-9097-40478e2c7c77.jpg', 682, NULL, 16, NULL, NULL);
+INSERT INTO public.books (id, title, cover, page_count, series_id, author_id, series_order, deleted_at) VALUES (29, 'Tress of the Emerald Sea', 'images/books/d253acd6-cd4f-4ad3-ac7c-dd83a47400bd.jpg', 562, NULL, 1, NULL, NULL);
+INSERT INTO public.books (id, title, cover, page_count, series_id, author_id, series_order, deleted_at) VALUES (30, 'Guards! Guards!', 'images/books/1737a641-29d3-4962-93ee-667257c07db1.jpg', 471, 9, 6, 8, NULL);
+INSERT INTO public.books (id, title, cover, page_count, series_id, author_id, series_order, deleted_at) VALUES (31, 'The Grace of Kings', 'images/books/b9bf4124-c490-4e97-b93c-2bc57a0eced0.jpeg', 623, 10, 17, 1, NULL);
 
 
 --
@@ -666,22 +667,22 @@ INSERT INTO public.books VALUES (30, 'Guards! Guards!', 'images/books/1737a641-2
 -- Data for Name: genre; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
-INSERT INTO public.genre VALUES (5, 'Fiction');
-INSERT INTO public.genre VALUES (6, 'Fantasy');
-INSERT INTO public.genre VALUES (7, 'High Fantasy');
-INSERT INTO public.genre VALUES (8, 'Novel');
-INSERT INTO public.genre VALUES (9, 'Grim Dark');
-INSERT INTO public.genre VALUES (10, 'Adventure');
-INSERT INTO public.genre VALUES (11, 'History');
-INSERT INTO public.genre VALUES (12, 'Science Fiction');
-INSERT INTO public.genre VALUES (13, 'Humor');
-INSERT INTO public.genre VALUES (14, 'Dystopia');
-INSERT INTO public.genre VALUES (15, 'Comedy');
-INSERT INTO public.genre VALUES (16, 'Horror');
-INSERT INTO public.genre VALUES (17, 'Historical Fiction');
-INSERT INTO public.genre VALUES (18, 'Medieval');
-INSERT INTO public.genre VALUES (19, 'Fairy Tale');
-INSERT INTO public.genre VALUES (20, 'Space');
+INSERT INTO public.genre (id, name) VALUES (5, 'Fiction');
+INSERT INTO public.genre (id, name) VALUES (6, 'Fantasy');
+INSERT INTO public.genre (id, name) VALUES (7, 'High Fantasy');
+INSERT INTO public.genre (id, name) VALUES (8, 'Novel');
+INSERT INTO public.genre (id, name) VALUES (9, 'Grim Dark');
+INSERT INTO public.genre (id, name) VALUES (10, 'Adventure');
+INSERT INTO public.genre (id, name) VALUES (11, 'History');
+INSERT INTO public.genre (id, name) VALUES (12, 'Science Fiction');
+INSERT INTO public.genre (id, name) VALUES (13, 'Humor');
+INSERT INTO public.genre (id, name) VALUES (14, 'Dystopia');
+INSERT INTO public.genre (id, name) VALUES (15, 'Comedy');
+INSERT INTO public.genre (id, name) VALUES (16, 'Horror');
+INSERT INTO public.genre (id, name) VALUES (17, 'Historical Fiction');
+INSERT INTO public.genre (id, name) VALUES (18, 'Medieval');
+INSERT INTO public.genre (id, name) VALUES (19, 'Fairy Tale');
+INSERT INTO public.genre (id, name) VALUES (20, 'Space');
 
 
 --
@@ -698,13 +699,13 @@ INSERT INTO public.genre VALUES (20, 'Space');
 -- Data for Name: series; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
-INSERT INTO public.series VALUES (1, 'The Stormlight Archive', 1);
-INSERT INTO public.series VALUES (2, 'Throne of Glass', 11);
-INSERT INTO public.series VALUES (3, 'The First Law', 5);
-INSERT INTO public.series VALUES (6, 'Dungeon Crawler Carl', 12);
-INSERT INTO public.series VALUES (8, 'Farseer Trilogy', 14);
-INSERT INTO public.series VALUES (9, 'Discworld', 6);
-INSERT INTO public.series VALUES (10, 'The Dandelion Dynasty', 17);
+INSERT INTO public.series (id, name, author_id) VALUES (1, 'The Stormlight Archive', 1);
+INSERT INTO public.series (id, name, author_id) VALUES (2, 'Throne of Glass', 11);
+INSERT INTO public.series (id, name, author_id) VALUES (3, 'The First Law', 5);
+INSERT INTO public.series (id, name, author_id) VALUES (6, 'Dungeon Crawler Carl', 12);
+INSERT INTO public.series (id, name, author_id) VALUES (8, 'Farseer Trilogy', 14);
+INSERT INTO public.series (id, name, author_id) VALUES (9, 'Discworld', 6);
+INSERT INTO public.series (id, name, author_id) VALUES (10, 'The Dandelion Dynasty', 17);
 
 
 --
@@ -713,8 +714,8 @@ INSERT INTO public.series VALUES (10, 'The Dandelion Dynasty', 17);
 -- Data for Name: user_books; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
-INSERT INTO public.user_books VALUES (12, 5, 5, 'To Be Read', NULL, NULL, NULL, NULL, NULL, NULL);
-INSERT INTO public.user_books VALUES (12, 11, 6, 'To Be Read', NULL, NULL, NULL, NULL, NULL, NULL);
+INSERT INTO public.user_books (user_id, book_id, session_id, status, start_date, completed_date, rating, book_medium, last_page, notes) VALUES (12, 5, 5, 'To Be Read', NULL, NULL, NULL, NULL, NULL, NULL);
+INSERT INTO public.user_books (user_id, book_id, session_id, status, start_date, completed_date, rating, book_medium, last_page, notes) VALUES (12, 11, 6, 'To Be Read', NULL, NULL, NULL, NULL, NULL, NULL);
 
 
 --
@@ -723,8 +724,8 @@ INSERT INTO public.user_books VALUES (12, 11, 6, 'To Be Read', NULL, NULL, NULL,
 -- Data for Name: users; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
-INSERT INTO public.users VALUES (1, 'useradmin@gmail.com', 'scrypt:32768:8:1$ik9nTzIftzI8wUzw$a65206a33ad629e2f73bb54b5fee502bef8cf8780797e908b0fbbe66afc9fea241c9f92e3989c88eace678fc41271ebbb5776afcdf255532913d54aab8965b76', 'This is the Admin account. The Admin account has the ability to add books to the general library of the app amongst other higher level capabilities', 'images/users/admin_profile_picture.png', '2026-01-21 11:43:12.347303', NULL, NULL, 'Admin');
-INSERT INTO public.users VALUES (12, 'bryanmurphy02@gmail.com', 'scrypt:32768:8:1$zHNlrLChhqez50sx$06b2f260d66c5eb3fbcb033e70856d07d8ff6dbfe3cf158666127dc1764e02e898df33cd2d20c4a2b7bc4272478fe64018ebe501ea65629091a60b92989c3244', NULL, 'images/users/bryanpfp.jpg', '2026-02-21 00:28:21.184186', NULL, NULL, 'bryanmurphy02');
+INSERT INTO public.users (id, email, password_hash, bio, profile_picture, created_at, last_login, favorite_book, username) VALUES (1, 'useradmin@gmail.com', 'scrypt:32768:8:1$ik9nTzIftzI8wUzw$a65206a33ad629e2f73bb54b5fee502bef8cf8780797e908b0fbbe66afc9fea241c9f92e3989c88eace678fc41271ebbb5776afcdf255532913d54aab8965b76', 'This is the Admin account. The Admin account has the ability to add books to the general library of the app amongst other higher level capabilities', 'images/users/admin_profile_picture.png', '2026-01-21 11:43:12.347303', NULL, NULL, 'Admin');
+INSERT INTO public.users (id, email, password_hash, bio, profile_picture, created_at, last_login, favorite_book, username) VALUES (12, 'bryanmurphy02@gmail.com', 'scrypt:32768:8:1$zHNlrLChhqez50sx$06b2f260d66c5eb3fbcb033e70856d07d8ff6dbfe3cf158666127dc1764e02e898df33cd2d20c4a2b7bc4272478fe64018ebe501ea65629091a60b92989c3244', NULL, 'images/users/bryanpfp.jpg', '2026-02-21 00:28:21.184186', NULL, NULL, 'bryanmurphy02');
 
 
 --
@@ -1006,7 +1007,7 @@ ALTER TABLE ONLY public.user_books
     ADD CONSTRAINT user_books_user_id_fkey FOREIGN KEY (user_id) REFERENCES public.users(id) ON DELETE CASCADE;
 
 
--- Completed on 2026-03-03 12:34:12
+-- Completed on 2026-03-02 20:58:27
 
 --
 -- PostgreSQL database dump complete
