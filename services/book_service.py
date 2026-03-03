@@ -136,6 +136,13 @@ def add_user_book(book_id, user_id):
         fetchone=True
     )
 
+# soft delete a book
+def soft_book_delete(book_id, time):
+    return query_database(
+        "UPDATE books SET deleted_at = %s WHERE id = %s RETURNING *;",
+        (time, book_id),
+        fetchone=True
+    )
 
 
 

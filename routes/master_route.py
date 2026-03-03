@@ -1,6 +1,7 @@
 
 from services import book_service, author_service, genre_service, reading_calendar_service, series_service, user_service, db_views
 from psycopg2.extras import RealDictRow
+from datetime import datetime
 
 
 def to_dict(data):
@@ -46,6 +47,10 @@ def get_book_display(book_id):
 # return books from added to a user's profile
 def get_user_books(user_id):
     return to_dict(user_service.get_user_books(user_id))
+
+# return all the trashed books
+def get_trash():
+    return to_dict(db_views.get_all_trash())
 
 
 #Id get functions
@@ -152,3 +157,8 @@ def add_genre(name):
 def add_genre_mapping(book_id, genre_id):
     row = genre_service.add_book_genre_map(book_id, genre_id)
     return row if row else None
+
+# grab the time and soft delete a book
+def soft_book_delete(book_id):
+    deleted_time = datetime.now()
+    row = book_service.soft_book_delete(book_id, deleted_time)

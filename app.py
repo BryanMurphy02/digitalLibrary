@@ -39,6 +39,16 @@ def library():
     library_table = master_route.get_library_table()
     return render_template("library.html", library_table=library_table)
 
+@app.route('/delete/<int:book_id>', methods=['POST'])
+def soft_delete(book_id):
+    master_route.soft_book_delete(book_id)
+    return redirect(url_for('library'))
+
+@app.route('/trash')
+def trash():
+    trash_table = master_route.get_trash()
+    return render_template("trash.html", trash_table=trash_table)
+
 @app.route('/book/<int:book_id>')
 def display_book(book_id):
     displayed_book = master_route.get_book_display(book_id)
