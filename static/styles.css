@@ -511,6 +511,31 @@ p {
     }
 }
 
+.edit-and-delete {
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+}
+
+.edit-and-delete form {
+    margin: 0;
+    padding: 0;
+    display: flex;
+}
+
+.edit-and-delete .back-button {
+    display: flex;
+    align-items: center;
+    margin: 0;
+    padding: 6px 14px;
+    font-size: 0.8rem;
+}
+
+.edit-and-delete .add-book-submit {
+    padding: 6px 14px;
+    font-size: 0.8rem;
+}
+
 /* ---------------- Add Book Page ---------------- */
 .add-book-container {
     max-width: 900px;
