@@ -64,6 +64,85 @@ def display_book(book_id):
     displayed_book = master_route.get_book_display(book_id)
     return render_template("display_book.html", displayed_book=displayed_book)
 
+@app.route('/edit/<int:book_id>', methods=['GET'])
+@login_required
+def edit_book_page(book_id):
+    if current_user.id != 1:
+        flash("You do not have permission to edit books.")
+        return redirect(url_for('display_book', book_id=book_id))
+
+    book = master_route.get_row_by_id("book", book_id)
+    author = master_route.get_row_by_id("author", book['author_id'])
+    series = master_route.get_row_by_id("series", book['series_id']) if book['series_id'] else None
+    all_genres = master_route.get_genres()
+    current_genre_ids = master_route.get_genre_ids_for_book(book_id)
+
+    return render_template(
+        "edit_book.html",
+        book=book,
+        author=author,
+        series=series,
+        all_genres=all_genres,
+        current_genre_ids=current_genre_ids
+    )
+
+
+@app.route('/edit/<int:book_id>', methods=['POST'])
+@login_required
+def edit_book(book_id):
+    if current_user.id != 1:
+        flash("You do not have permission to edit books.")
+        return redirect(url_for('display_book', book_id=book_id))
+
+    title = request.form.get('title')
+    author_first_name = request.form.get('author_first_name')
+    author_last_name = request.form.get('author_last_name')
+    page_count = request.form.get('page_count') or None
+    series_name = request.form.get('series_name') or None
+    series_order = request.form.get('series_order') or None
+    genre_ids = request.form.getlist('genres')
+    new_genre = request.form.get('new_genre') or None
+
+    # handle cover upload
+    cover_file = request.files.get('cover') or None
+    cover_path = None
+    if cover_file and cover_file.filename:
+        filename = secure_filename(cover_file.filename)
+        ext = filename.rsplit('.', 1)[1]
+        filename = f"{uuid.uuid4()}.{ext}"
+        cover_path = f"images/books/{filename}"
+        cover_file.save(os.path.join("static", cover_path))
+
+    # author
+    author_id = master_route.add_author(author_first_name, author_last_name)
+
+    # series
+    series_id = None
+    if series_name:
+        series_id = master_route.get_id("series", series_name)
+        if series_id is None:
+            series_id = master_route.add_series(series_name, author_id)
+
+    # update book
+    master_route.edit_book(
+        book_id,
+        title=title,
+        author_id=author_id,
+        page_count=page_count,
+        series_id=series_id,
+        series_order=series_order,
+        cover=cover_path
+    )
+
+    # update genres by wiping and re-adding
+    if new_genre:
+        new_genre_id = master_route.add_genre(new_genre)
+        genre_ids.append(new_genre_id)
+
+    master_route.update_book_genres(book_id, [int(g) for g in genre_ids])
+
+    flash("Book updated successfully!")
+    return redirect(url_for('display_book', book_id=book_id))
 
 @app.route('/profile')
 @login_required
@@ -136,7 +215,7 @@ def add_books():
             master_route.add_genre_mapping(book_id, int(genre_id))
 
         flash("Book added successfully!")
-        return redirect(url_for('add_books'))
+        return redirect(url_for('library'))
 
     genres = master_route.get_genres()
     return render_template("add_books.html", genres=genres)

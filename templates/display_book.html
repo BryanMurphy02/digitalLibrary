@@ -15,7 +15,7 @@ My App
             <div class="book-header-info">
                 <div class="edit-and-delete">
                     {% if current_user.is_authenticated and current_user.id == 1 %}
-                        <a href="" class="back-button">Edit</a>
+                        <a href="{{ url_for('edit_book_page', book_id=displayed_book.book_id) }}" class="back-button">Edit</a>
                         <form action="{{ url_for('soft_delete', book_id=displayed_book.book_id) }}" method="POST" style="display:inline;">
                             <button type="submit" class="add-book-submit">Delete</button>
                         </form>
