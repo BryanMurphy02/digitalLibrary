@@ -5,12 +5,11 @@
 -- Dumped from database version 16.12 (Debian 16.12-1.pgdg13+1)
 -- Dumped by pg_dump version 17.5
 
--- Started on 2026-03-04 09:53:20
+-- Started on 2026-03-03 12:34:12
 
 SET statement_timeout = 0;
 SET lock_timeout = 0;
 SET idle_in_transaction_session_timeout = 0;
-SET transaction_timeout = 0;
 SET client_encoding = 'UTF8';
 SET standard_conforming_strings = on;
 SELECT pg_catalog.set_config('search_path', '', false);
@@ -611,9 +610,9 @@ INSERT INTO public.book_genre_map VALUES (30, 5);
 INSERT INTO public.book_genre_map VALUES (30, 6);
 INSERT INTO public.book_genre_map VALUES (30, 13);
 INSERT INTO public.book_genre_map VALUES (30, 15);
-INSERT INTO public.book_genre_map VALUES (32, 5);
-INSERT INTO public.book_genre_map VALUES (32, 6);
-INSERT INTO public.book_genre_map VALUES (32, 7);
+INSERT INTO public.book_genre_map VALUES (31, 5);
+INSERT INTO public.book_genre_map VALUES (31, 6);
+INSERT INTO public.book_genre_map VALUES (31, 7);
 
 
 --
@@ -635,6 +634,7 @@ INSERT INTO public.books VALUES (15, 'Tower of Dawn', 'images/books/tower_of_daw
 INSERT INTO public.books VALUES (16, 'Kingdom of Ash', 'images/books/kingdom_of_ash.jpg', 984, 2, 11, 8, NULL);
 INSERT INTO public.books VALUES (6, 'The Blade Itself', 'images/books/the_blade_itself.jpg', 501, 3, 5, 1, NULL);
 INSERT INTO public.books VALUES (7, 'Before they are Hanged', 'images/books/before_they_are_hanged.jpg', 514, 3, 5, 2, NULL);
+INSERT INTO public.books VALUES (8, 'Last Argument of Kings', 'images/books/last_argument_of_kings.jpg', 603, 3, 5, 3, NULL);
 INSERT INTO public.books VALUES (18, 'Dungeon Crawler Carl', 'images/books/dungeon_crawler_carl.jpg', 446, 6, 12, 1, NULL);
 INSERT INTO public.books VALUES (19, 'Carl''s Doomsday Scenario', 'images/books/carl''s_doomsday_scenario.jpg', 364, 6, 12, 2, NULL);
 INSERT INTO public.books VALUES (20, 'The Dungeon Anarchist''s Cookbook', 'images/books/the_dungeon_anarchist''s_cookbook.jpg', 534, 6, 12, 3, NULL);
@@ -644,13 +644,12 @@ INSERT INTO public.books VALUES (24, 'This Inevitable Ruin', 'images/books/this_
 INSERT INTO public.books VALUES (26, 'Royal Assassin', 'images/books/4575783a-6c69-4722-8aff-f78aeb074d57.jpg', 679, 8, 14, 2, NULL);
 INSERT INTO public.books VALUES (27, 'Hyperion', 'images/books/d7cd71d8-20bd-4d3b-b92e-e10bfcc6e7d6.jpg', 500, NULL, 15, NULL, NULL);
 INSERT INTO public.books VALUES (28, 'Project Hail Mary', 'images/books/ac5aa4d4-4d06-4ccc-9097-40478e2c7c77.jpg', 682, NULL, 16, NULL, NULL);
+INSERT INTO public.books VALUES (31, 'The Grace of Kings', 'images/books/b9bf4124-c490-4e97-b93c-2bc57a0eced0.jpeg', 623, 10, 17, 1, NULL);
+INSERT INTO public.books VALUES (11, 'Throne of Glass', 'images/books/throne_of_glass.jpg', 409, 2, 11, 2, '2026-03-03 14:59:36.981632');
+INSERT INTO public.books VALUES (29, 'Tress of the Emerald Sea', 'images/books/d253acd6-cd4f-4ad3-ac7c-dd83a47400bd.jpg', 562, NULL, 1, NULL, NULL);
 INSERT INTO public.books VALUES (10, 'The Assassin’s Blade', 'images/books/the_assassin''s_blade.jpg', 448, 2, 11, 1, NULL);
 INSERT INTO public.books VALUES (21, 'The Gate of the Feral Gods', 'images/books/the_gate_of_the_feral_gods.jpg', 586, 6, 12, 4, NULL);
 INSERT INTO public.books VALUES (30, 'Guards! Guards!', 'images/books/1737a641-29d3-4962-93ee-667257c07db1.jpg', 471, 9, 6, 8, NULL);
-INSERT INTO public.books VALUES (11, 'Throne of Glass', 'images/books/throne_of_glass.jpg', 409, 2, 11, 2, NULL);
-INSERT INTO public.books VALUES (29, 'Tress of the Emerald Sea', 'images/books/d253acd6-cd4f-4ad3-ac7c-dd83a47400bd.jpg', 562, NULL, 1, NULL, NULL);
-INSERT INTO public.books VALUES (8, 'Last Argument of Kings', 'images/books/last_argument_of_kings.jpg', 603, 3, 5, 3, NULL);
-INSERT INTO public.books VALUES (32, 'The Grace of Kings', 'images/books/405a32fd-b578-49f5-8e48-ff3b86b7a8f6.jpeg', 623, 10, 17, 1, NULL);
 
 
 --
@@ -734,7 +733,7 @@ INSERT INTO public.users VALUES (12, 'bryanmurphy02@gmail.com', 'scrypt:32768:8:
 -- Name: Master_Books_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public."Master_Books_id_seq"', 32, true);
+SELECT pg_catalog.setval('public."Master_Books_id_seq"', 31, true);
 
 
 --
@@ -900,12 +899,12 @@ ALTER TABLE ONLY public.users
 
 
 --
--- TOC entry 3368 (class 2606 OID 16572)
+-- TOC entry 3368 (class 2606 OID 16490)
 -- Name: book_genre_map book_genre_map_book_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY public.book_genre_map
-    ADD CONSTRAINT book_genre_map_book_id_fkey FOREIGN KEY (book_id) REFERENCES public.books(id) ON DELETE CASCADE;
+    ADD CONSTRAINT book_genre_map_book_id_fkey FOREIGN KEY (book_id) REFERENCES public.books(id);
 
 
 --
@@ -1007,7 +1006,7 @@ ALTER TABLE ONLY public.user_books
     ADD CONSTRAINT user_books_user_id_fkey FOREIGN KEY (user_id) REFERENCES public.users(id) ON DELETE CASCADE;
 
 
--- Completed on 2026-03-04 09:53:20
+-- Completed on 2026-03-03 12:34:12
 
 --
 -- PostgreSQL database dump complete
