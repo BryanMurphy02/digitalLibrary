@@ -27,7 +27,7 @@ My App
                 <form action="{{ url_for('restore', book_id=book.book_id) }}" method="POST">
                     <button type="submit" class="trash-btn restore-btn">Restore</button>
                 </form>
-                <form action="{{ url_for('delete', book_id=book.book_id) }}" method="POST">
+                <form action="{{ url_for('hard_delete', book_id=book.book_id) }}" method="POST">
                     <button type="submit" class="trash-btn delete-btn">Delete</button>
                 </form>
             </div>

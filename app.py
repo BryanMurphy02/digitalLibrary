@@ -54,8 +54,8 @@ def restore(book_id):
     master_route.restore_book(book_id)
     return redirect(url_for('trash'))
 
-@app.route('/delete/<int:book_id>', methods=['POST'])
-def delete(book_id):
+@app.route('/hard_delete/<int:book_id>', methods=['POST'])
+def hard_delete(book_id):
     master_route.hard_book_delete(book_id)
     return redirect(url_for('trash'))
 

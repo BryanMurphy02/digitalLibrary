@@ -154,11 +154,19 @@ def book_restore(book_id):
 
 # hard delete a book
 def hard_delete(book_id):
+    # handing the edge case for when any users would have the book being deleted as their fav
+    query_database(
+        "UPDATE users SET favorite_book = NULL WHERE favorite_book = %s;",
+        (book_id,)
+    )
+
     return query_database(
-        "DELETE FROM books WHERE id = %s",
-        (book_id),
+        "DELETE FROM books WHERE id = %s RETURNING *;",
+        (book_id,),
         fetchone=True
     )
+
+
 
 
 
