@@ -92,6 +92,13 @@ def get_user_books(user_id):
     )
 
 
+# add a book to the user's library
+def add_user_book(user_id, book_id):
+    query_database(
+        "INSERT INTO user_books (user_id, book_id) VALUES (%s, %s) RETURNING *;",
+        (user_id, book_id),
+        fetchone=True
+    )
 
 
 #Testing

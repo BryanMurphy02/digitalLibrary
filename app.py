@@ -39,6 +39,12 @@ def library():
     library_table = master_route.get_library_table()
     return render_template("library.html", library_table=library_table)
 
+@app.route('/add_to_library/<int:book_id>', methods=['POST'])
+def add_to_library(book_id):
+    user_id = current_user.id
+    master_route.add_user_book(user_id, book_id)
+    return redirect(url_for('profile'))
+
 @app.route('/delete/<int:book_id>', methods=['POST'])
 def soft_delete(book_id):
     master_route.soft_book_delete(book_id)
