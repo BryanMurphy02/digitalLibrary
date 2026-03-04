@@ -35,6 +35,11 @@ My App
                 {% if displayed_book.series_name %}
                     <p class="series-info">Part of the <span>{{ displayed_book.series_name }}</span> series — Book <span>{{ displayed_book.series_order }}</span></p>
                 {% endif %}
+                {% if current_user.is_authenticated %}
+                    <form action="{{ url_for('add_to_library', book_id=displayed_book.book_id) }}" method="POST" style="display:inline;">
+                        <button type="submit" class="add-book-submit">+ Add to Library</button>
+                    </form>
+                {% endif %}
             </div>
         </div>
 

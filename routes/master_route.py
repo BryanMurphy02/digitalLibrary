@@ -163,6 +163,11 @@ def add_genre_mapping(book_id, genre_id):
     row = genre_service.add_book_genre_map(book_id, genre_id)
     return row if row else None
 
+# add book to user's library
+def add_user_book(user_id, book_id):
+    row = user_service.add_user_book(user_id, book_id)
+    return row if row else None
+
 # grab the time and soft delete a book
 def soft_book_delete(book_id):
     deleted_time = datetime.now()
