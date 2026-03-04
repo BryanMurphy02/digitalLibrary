@@ -124,9 +124,13 @@ def update_book_genre_map(book_id, **kwargs):
     row = query_database(query, tuple(values), fetchone=True)
     return row
 
-#remove all book mappings for a genre
+# given a genre id, remove all the books that are linked to it
 def remove_genre_mappings(genre_id):
     query_database("DELETE FROM book_genre_map WHERE genre_id = %s", (genre_id,))
+
+# takes in a book id and removes all the genres linked to it
+def remove_genre_mappings_for_book(book_id):
+    query_database("DELETE FROM book_genre_map WHERE book_id = %s", (book_id,))
 
 #assigns the passed in genres to a passed in book
 def add_genres_to_book(book_id, *genre_names):

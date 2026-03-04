@@ -52,6 +52,11 @@ def get_user_books(user_id):
 def get_trash():
     return to_dict(db_views.get_all_trash())
 
+# get all genre ids for a book
+def get_genre_ids_for_book(book_id):
+    rows = book_service.get_genre_of_book(book_id)
+    return [row['genre_id'] for row in rows] if rows else []
+
 
 #Id get functions
 #Input the name of the service and the name, returns int
@@ -173,3 +178,16 @@ def restore_book(book_id):
 def hard_book_delete(book_id):
     row = book_service.hard_delete(book_id)
     return row if row else None
+
+# edits fields of a book, skipping over cover if no new cover
+# example call would be edit_book(1, title="New Title", page_count=500, cover="images/books/new.jpg")
+def edit_book(book_id, cover=None, **kwargs):
+    if cover is not None:
+        kwargs['cover'] = cover
+    return to_dict(book_service.update_book(book_id, **kwargs))
+
+# get rid of genres linked to a book and re-add them
+def update_book_genres(book_id, genre_ids):
+    genre_service.remove_genre_mappings_for_book(book_id)
+    for genre_id in genre_ids:
+        genre_service.add_book_genre_map(book_id, genre_id)
