@@ -5,7 +5,7 @@
 -- Dumped from database version 16.12 (Debian 16.12-1.pgdg13+1)
 -- Dumped by pg_dump version 17.5
 
--- Started on 2026-03-04 09:53:20
+-- Started on 2026-03-04 10:32:46
 
 SET statement_timeout = 0;
 SET lock_timeout = 0;
@@ -598,10 +598,6 @@ INSERT INTO public.book_genre_map VALUES (26, 8);
 INSERT INTO public.book_genre_map VALUES (26, 7);
 INSERT INTO public.book_genre_map VALUES (28, 5);
 INSERT INTO public.book_genre_map VALUES (28, 12);
-INSERT INTO public.book_genre_map VALUES (29, 5);
-INSERT INTO public.book_genre_map VALUES (29, 6);
-INSERT INTO public.book_genre_map VALUES (29, 7);
-INSERT INTO public.book_genre_map VALUES (29, 19);
 INSERT INTO public.book_genre_map VALUES (27, 5);
 INSERT INTO public.book_genre_map VALUES (27, 12);
 INSERT INTO public.book_genre_map VALUES (27, 6);
@@ -611,9 +607,18 @@ INSERT INTO public.book_genre_map VALUES (30, 5);
 INSERT INTO public.book_genre_map VALUES (30, 6);
 INSERT INTO public.book_genre_map VALUES (30, 13);
 INSERT INTO public.book_genre_map VALUES (30, 15);
+INSERT INTO public.book_genre_map VALUES (33, 5);
+INSERT INTO public.book_genre_map VALUES (33, 6);
+INSERT INTO public.book_genre_map VALUES (33, 7);
+INSERT INTO public.book_genre_map VALUES (33, 19);
+INSERT INTO public.book_genre_map VALUES (34, 5);
+INSERT INTO public.book_genre_map VALUES (34, 6);
+INSERT INTO public.book_genre_map VALUES (34, 7);
+INSERT INTO public.book_genre_map VALUES (34, 21);
 INSERT INTO public.book_genre_map VALUES (32, 5);
 INSERT INTO public.book_genre_map VALUES (32, 6);
 INSERT INTO public.book_genre_map VALUES (32, 7);
+INSERT INTO public.book_genre_map VALUES (32, 21);
 
 
 --
@@ -648,8 +653,9 @@ INSERT INTO public.books VALUES (10, 'The Assassin’s Blade', 'images/books/the
 INSERT INTO public.books VALUES (21, 'The Gate of the Feral Gods', 'images/books/the_gate_of_the_feral_gods.jpg', 586, 6, 12, 4, NULL);
 INSERT INTO public.books VALUES (30, 'Guards! Guards!', 'images/books/1737a641-29d3-4962-93ee-667257c07db1.jpg', 471, 9, 6, 8, NULL);
 INSERT INTO public.books VALUES (11, 'Throne of Glass', 'images/books/throne_of_glass.jpg', 409, 2, 11, 2, NULL);
-INSERT INTO public.books VALUES (29, 'Tress of the Emerald Sea', 'images/books/d253acd6-cd4f-4ad3-ac7c-dd83a47400bd.jpg', 562, NULL, 1, NULL, NULL);
 INSERT INTO public.books VALUES (8, 'Last Argument of Kings', 'images/books/last_argument_of_kings.jpg', 603, 3, 5, 3, NULL);
+INSERT INTO public.books VALUES (33, 'Tress of the Emerald Sea', 'images/books/6f06ba8f-4882-4cb3-b5ca-10dd28ba227b.jpg', 562, NULL, 1, NULL, NULL);
+INSERT INTO public.books VALUES (34, 'The Wall of Storms', 'images/books/d8675558-6618-44b5-88cf-fbe2760a7e42.jpg', 852, 10, 17, 2, NULL);
 INSERT INTO public.books VALUES (32, 'The Grace of Kings', 'images/books/405a32fd-b578-49f5-8e48-ff3b86b7a8f6.jpeg', 623, 10, 17, 1, NULL);
 
 
@@ -683,6 +689,7 @@ INSERT INTO public.genre VALUES (17, 'Historical Fiction');
 INSERT INTO public.genre VALUES (18, 'Medieval');
 INSERT INTO public.genre VALUES (19, 'Fairy Tale');
 INSERT INTO public.genre VALUES (20, 'Space');
+INSERT INTO public.genre VALUES (21, 'Silk Punk');
 
 
 --
@@ -734,7 +741,7 @@ INSERT INTO public.users VALUES (12, 'bryanmurphy02@gmail.com', 'scrypt:32768:8:
 -- Name: Master_Books_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public."Master_Books_id_seq"', 32, true);
+SELECT pg_catalog.setval('public."Master_Books_id_seq"', 34, true);
 
 
 --
@@ -752,7 +759,7 @@ SELECT pg_catalog.setval('public.author_id_seq', 17, true);
 -- Name: genre_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.genre_id_seq', 20, true);
+SELECT pg_catalog.setval('public.genre_id_seq', 21, true);
 
 
 --
@@ -1007,7 +1014,7 @@ ALTER TABLE ONLY public.user_books
     ADD CONSTRAINT user_books_user_id_fkey FOREIGN KEY (user_id) REFERENCES public.users(id) ON DELETE CASCADE;
 
 
--- Completed on 2026-03-04 09:53:20
+-- Completed on 2026-03-04 10:32:46
 
 --
 -- PostgreSQL database dump complete
