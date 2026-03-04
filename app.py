@@ -215,7 +215,7 @@ def add_books():
             master_route.add_genre_mapping(book_id, int(genre_id))
 
         flash("Book added successfully!")
-        return redirect(url_for('add_books'))
+        return redirect(url_for('library'))
 
     genres = master_route.get_genres()
     return render_template("add_books.html", genres=genres)
