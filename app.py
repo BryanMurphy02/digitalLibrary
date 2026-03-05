@@ -70,6 +70,14 @@ def display_book(book_id):
     displayed_book = master_route.get_book_display(book_id)
     return render_template("display_book.html", displayed_book=displayed_book)
 
+@app.route('/display_user_book')
+def display_user_book():
+    return render_template("display_user_book.html")
+
+@app.route('/remove_user_book')
+def remove_user_book():
+    return render_template("display_user_book.html")
+
 @app.route('/edit/<int:book_id>', methods=['GET'])
 @login_required
 def edit_book_page(book_id):

@@ -61,6 +61,12 @@
                         <h3 class="book-title">{{ book.book_title }}</h3>
                         <p class="book-author">{{ book.author_first_name }} {{ book.author_last_name }}</p>
                     </div>
+                    <div class="trash-actions">
+                        <a href="{{ url_for('display_user_book') }}" class="trash-btn restore-btn">Open</a>
+                        <form action="{{ url_for('remove_user_book') }}" method="POST">
+                            <button type="submit" class="trash-btn delete-btn">Remove</button>
+                        </form>
+                    </div>
                 </div>
             {% endfor %}
         </div>
