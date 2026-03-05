@@ -49,7 +49,7 @@
         <div class="form-section-label" style="padding: 0 40px;">My Books</div>
         <div class="book-grid" style="padding: 1rem 40px 40px 40px;">
             {% for book in user_books %}
-                <div class="book-card">
+                <div class="book-card trash-card">
                     <div class="book-cover">
                         {% if book.book_cover %}
                             <img src="{{ url_for('static', filename=book.book_cover) }}" alt="{{ book.book_title }}">
